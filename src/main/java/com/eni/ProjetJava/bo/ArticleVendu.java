@@ -8,8 +8,8 @@ public class ArticleVendu {
     private String description;
     private Date dateDebutEncheres;
     private Date dateFinEncheres;
-    private int miseAPrix;
-    private int prixVente;
+    private float miseAPrix;
+    private float prixVente;
     private String etatVente;
 
     public ArticleVendu() {}
@@ -54,19 +54,19 @@ public class ArticleVendu {
         this.dateFinEncheres = dateFinEncheres;
     }
 
-    public int getPrixVente() {
+    public float getPrixVente() {
         return prixVente;
     }
 
-    public void setPrixVente(int prixVente) {
+    public void setPrixVente(float prixVente) {
         this.prixVente = prixVente;
     }
 
-    public int getMiseAPrix() {
+    public float getMiseAPrix() {
         return miseAPrix;
     }
 
-    public void setMiseAPrix(int miseAPrix) {
+    public void setMiseAPrix(float miseAPrix) {
         this.miseAPrix = miseAPrix;
     }
 

@@ -2,7 +2,7 @@ package com.eni.ProjetJava.bo;
 
 public class Retrait {
     private String rue;
-    private String code_postal;
+    private String codePostal;
     private String ville;
 
     public Retrait() {}
@@ -15,12 +15,12 @@ public class Retrait {
         this.rue = rue;
     }
 
-    public String getCode_postal() {
-        return code_postal;
+    public String getCodePostal() {
+        return codePostal;
     }
 
-    public void setCode_postal(String code_postal) {
-        this.code_postal = code_postal;
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
     }
 
     public String getVille() {

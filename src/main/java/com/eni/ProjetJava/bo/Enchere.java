@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Enchere {
     private Date dateEnchere;
-    private int montant_enchere;
+    private float montantEnchere;
 
     public Enchere() {}
 
@@ -16,11 +16,11 @@ public class Enchere {
         this.dateEnchere = dateEnchere;
     }
 
-    public int getMontant_enchere() {
-        return montant_enchere;
+    public float getMontantEnchere() {
+        return montantEnchere;
     }
 
-    public void setMontant_enchere(int montant_enchere) {
-        this.montant_enchere = montant_enchere;
+    public void setMontantEnchere(float montantEnchere) {
+        this.montantEnchere = montantEnchere;
     }
 }

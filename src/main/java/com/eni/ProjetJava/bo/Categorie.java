@@ -6,6 +6,10 @@ public class Categorie {
 
     public Categorie() {}
 
+    public String getNoCategorie() {
+        return noCategorie;
+    }
+
     public void setNoCategorie(String noCategorie) {
         this.noCategorie = noCategorie;
     }

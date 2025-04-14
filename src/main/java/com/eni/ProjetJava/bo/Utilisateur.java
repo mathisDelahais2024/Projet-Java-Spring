@@ -9,10 +9,10 @@ public class Utilisateur {
     private String email;
     private long telephone;
     private String rue;
-    private String code_postal;
+    private String codePostal;
     private String ville;
     private String motDePasse;
-    private String credit;
+    private float credit;
     private boolean administrateur;
 
     public Utilisateur() {}
@@ -73,12 +73,12 @@ public class Utilisateur {
         this.rue = rue;
     }
 
-    public String getCode_postal() {
-        return code_postal;
+    public String getCodePostal() {
+        return codePostal;
     }
 
-    public void setCode_postal(String code_postal) {
-        this.code_postal = code_postal;
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
     }
 
     public String getVille() {
@@ -97,11 +97,11 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-    public String getCredit() {
+    public float getCredit() {
         return credit;
     }
 
-    public void setCredit(String credit) {
+    public void setCredit(float credit) {
         this.credit = credit;
     }
 

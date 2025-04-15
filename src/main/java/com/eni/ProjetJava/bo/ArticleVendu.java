@@ -1,18 +1,32 @@
 package com.eni.ProjetJava.bo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ArticleVendu {
     private String noArticle;
     private String nomArticle;
     private String description;
-    private Date dateDebutEncheres;
-    private Date dateFinEncheres;
+    private LocalDate dateDebutEncheres;
+    private LocalDate dateFinEncheres;
     private float miseAPrix;
     private float prixVente;
     private String etatVente;
+    private Categorie categorie;
+    private Utilisateur vendeur;
+    private Retrait retrait;
 
     public ArticleVendu() {}
+
+    public ArticleVendu(String noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, String etatVente) {
+        this.noArticle = noArticle;
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAPrix = miseAPrix;
+        this.prixVente = prixVente;
+        this.etatVente = etatVente;
+    }
 
     public String getNoArticle() {
         return noArticle;
@@ -38,19 +52,19 @@ public class ArticleVendu {
         this.nomArticle = nomArticle;
     }
 
-    public Date getDateDebutEncheres() {
+    public LocalDate getDateDebutEncheres() {
         return dateDebutEncheres;
     }
 
-    public void setDateDebutEncheres(Date dateDebutEncheres) {
+    public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
         this.dateDebutEncheres = dateDebutEncheres;
     }
 
-    public Date getDateFinEncheres() {
+    public LocalDate getDateFinEncheres() {
         return dateFinEncheres;
     }
 
-    public void setDateFinEncheres(Date dateFinEncheres) {
+    public void setDateFinEncheres(LocalDate dateFinEncheres) {
         this.dateFinEncheres = dateFinEncheres;
     }
 
@@ -76,5 +90,29 @@ public class ArticleVendu {
 
     public void setEtatVente(String etatVente) {
         this.etatVente = etatVente;
+    }
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    public Utilisateur getVendeur() {
+        return vendeur;
+    }
+
+    public void setVendeur(Utilisateur vendeur) {
+        this.vendeur = vendeur;
+    }
+
+    public Retrait getRetrait() {
+        return retrait;
+    }
+
+    public void setRetrait(Retrait retrait) {
+        this.retrait = retrait;
     }
 }

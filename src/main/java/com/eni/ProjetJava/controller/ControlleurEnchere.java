@@ -1,4 +1,4 @@
-package com.eni.ProjetJava.controlleur;
+package com.eni.ProjetJava.controller;
 
 import com.eni.ProjetJava.bo.Article;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class ControlleurEnchere {
 
-    @GetMapping("/encheres")
+    @GetMapping("/accueil")
     public String listerEncheres(Model model) {
         List<Article> articles = new ArrayList<>();
 

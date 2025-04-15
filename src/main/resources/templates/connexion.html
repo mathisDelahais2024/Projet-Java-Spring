@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - ENI-Enchères</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Lien vers Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+
+<!-- Container -->
+<section class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Se connecter</h2>
+
+        <!-- Formulaire de connexion -->
+        <form action="#" method="POST">
+            <!-- Identifiant -->
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="Entrez votre email" required
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="mb-6">
+                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Se souvenir de moi -->
+            <div class="flex items-center mb-6">
+                <input type="checkbox" id="remember" name="remember" class="mr-2 w-4 h-4 text-blue-600">
+                <label for="remember" class="text-sm text-gray-700">Se souvenir de moi</label>
+            </div>
+
+            <!-- Boutons -->
+            <button type="submit" onclick="window.location.href='/accueil'" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition mb-4">Se connecter</button>
+
+            <div class="flex justify-between items-center mb-6">
+                <!-- Lien mot de passe oublié -->
+                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">Mot de passe oublié ?</a>
+
+                <!-- Bouton créer un compte -->
+                <a href="#" th:href="@{/inscription}" class="text-sm text-blue-600 hover:text-blue-800">Créer un compte</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

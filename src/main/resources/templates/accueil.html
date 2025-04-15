@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ENI-Enchères</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Lien vers Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+<!-- Header -->
+<header class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <h2 class="text-2xl font-bold">ENI-Enchères</h2>
+        <div class="space-x-4">
+            <a href="#" th:href="@{/inscription}" class="text-white hover:text-blue-200">S'inscrire</a>
+            <span>|</span>
+            <a href="#" th:href="@{/connexion}" class="text-white hover:text-blue-200">Se connecter</a>
+        </div>
+    </div>
+</header>
+
+<!-- Filtres -->
+<section class="container mx-auto mt-8 px-4 py-6 bg-white shadow-lg rounded-lg">
+    <h4 class="text-xl font-semibold mb-4">Filtres :</h4>
+    <form th:action="@{/encheres}" method="get" class="space-y-4">
+        <div>
+            <label for="categorie" class="block text-sm font-medium text-gray-700">Catégories</label>
+            <select name="categorie" id="categorie" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Toutes</option>
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.nom}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="search" class="block text-sm font-medium text-gray-700">Nom de l'article</label>
+            <input type="text" name="search" id="search" placeholder="Le nom de l'article" th:value="${search}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Rechercher</button>
+    </form>
+</section>
+
+<!-- Liste des articles -->
+<section class="container mx-auto mt-8 px-4">
+    <div th:each="article : ${articles}" class="flex flex-col sm:flex-row bg-white shadow-md rounded-lg mb-6 overflow-hidden">
+        <img th:src="${article.imageUrl}" alt="Image de l'article" class="w-full sm:w-48 h-48 object-cover rounded-t-lg sm:rounded-l-lg sm:rounded-t-none">
+        <div class="p-6 flex flex-col justify-between">
+            <strong th:text="${article.nom}" class="text-xl font-semibold text-gray-800 mb-2">Nom de l'article</strong>
+            <div class="space-y-1 text-sm text-gray-700">
+                <p>Prix : <span th:text="${article.prix}"></span> points</p>
+                <p>Classement : <span th:text="${article.classement}"></span></p>
+                <p>Fin de l'enchère : <span th:text="${#dates.format(article.dateFin, 'dd/MM/yyyy')}"></span></p>
+                <p>Retrait : <span th:text="${article.adresseRetrait}"></span></p>
+                <p>Vendeur : <span th:text="${article.vendeur}"></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

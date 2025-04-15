@@ -15,9 +15,10 @@ public class ArticleVendu {
     private Utilisateur vendeur;
     private Retrait retrait;
 
+
     public ArticleVendu() {}
 
-    public ArticleVendu(String noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, String etatVente) {
+    public ArticleVendu(String noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, String etatVente, Categorie categorie) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -26,6 +27,7 @@ public class ArticleVendu {
         this.miseAPrix = miseAPrix;
         this.prixVente = prixVente;
         this.etatVente = etatVente;
+        this.categorie = categorie;
     }
 
     public String getNoArticle() {

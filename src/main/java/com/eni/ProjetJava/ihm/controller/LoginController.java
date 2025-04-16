@@ -1,4 +1,4 @@
-package com.eni.ProjetJava.controller;
+package com.eni.ProjetJava.ihm.controller;
 
 import com.eni.ProjetJava.bo.Utilisateur;
 import com.eni.ProjetJava.service.UtilisateurService;

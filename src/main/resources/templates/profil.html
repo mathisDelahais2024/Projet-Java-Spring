@@ -14,57 +14,52 @@
   <form class="space-y-4">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="pseudo">Pseudo :</label>
-      <input id="pseudo" type="text" value="NineJea" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="pseudo" type="text" th:value="${session.utilisateur.pseudo}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="nom">Nom :</label>
-      <input id="nom" type="text" value="Crobert" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="nom" type="text" th:value="${session.utilisateur.nom}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="prenom">Prénom :</label>
-      <input id="prenom" type="text" value="Jeanine" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="prenom" type="text" th:value="${session.utilisateur.prenom}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="email">Email :</label>
-      <input id="email" type="email" value="j.crobert@bmail.fr" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="email" type="email" th:value="${session.utilisateur.email}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="telephone">Téléphone :</label>
-      <input id="telephone" type="tel" value="0645250412" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="telephone" type="tel" th:value="${session.utilisateur.telephone}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="rue">Rue :</label>
-      <input id="rue" type="text" value="rue des goélands" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="rue" type="text" th:value="${session.utilisateur.rue}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="codepostal">Code postal :</label>
-      <input id="codepostal" type="text" value="44800" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="codepostal" type="text" th:value="${session.utilisateur.codePostal}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="ville">Ville :</label>
-      <input id="ville" type="text" value="Saint Herblain" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="ville" type="text" th:value="${session.utilisateur.ville}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="motdepasse">Mot de passe :</label>
-      <input id="motdepasse" type="password" value="********" class="col-span-2 border border-black p-2 w-full rounded" />
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="confirmation">Confirmation :</label>
-      <input id="confirmation" type="password" value="********" class="col-span-2 border border-black p-2 w-full rounded" />
+      <input id="motdepasse" type="password" th:value="${session.utilisateur.motDePasse}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="flex items-center space-x-4 mt-4">
       <span class="font-semibold">Crédit :</span>
-      <span>640</span>
+      <input id="credit" type="password" th:value="${session.utilisateur.credit}" class="col-span-2 border border-black p-2 w-full rounded" />
     </div>
 
     <div class="flex justify-between mt-6">

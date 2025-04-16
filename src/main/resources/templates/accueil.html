@@ -14,12 +14,21 @@
     <div class="container mx-auto flex justify-between items-center">
         <h2 class="text-2xl font-bold">ENI-Enchères</h2>
         <div class="space-x-4">
-            <a href="#" th:href="@{/inscription}" class="text-white hover:text-blue-200">S'inscrire</a>
-            <span>|</span>
-            <a href="#" th:href="@{/connexion}" class="text-white hover:text-blue-200">Se connecter</a>
+            <div th:if="${session.utilisateur == null}">
+                <a th:href="@{/inscription}">S'inscrire</a>
+                <span>|</span>
+                <a th:href="@{/connexion}">Se connecter</a>
+            </div>
+
+            <div th:if="${session.utilisateur != null}">
+                <a th:href="@{/profil}">Mon Profil</a>
+                <span>|</span>
+                <a th:href="@{/deconnexion}">Déconnexion</a>
+            </div>
         </div>
     </div>
 </header>
+
 
 <!-- Filtres -->
 <section class="container mx-auto mt-8 px-4 py-6 bg-white shadow-lg rounded-lg">

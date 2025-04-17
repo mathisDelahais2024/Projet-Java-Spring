@@ -1,6 +1,7 @@
 package com.eni.ProjetJava.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,10 +48,5 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager() {
         return new ProviderManager(List.of(authenticationProvider));
-    }
-
-    @Bean
-    public PasswordEncoder motDePasseEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

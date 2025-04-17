@@ -1,4 +1,4 @@
-package com.eni.ProjetJava.ihm;
+package com.eni.ProjetJava.ihm.controller;
 
 import com.eni.ProjetJava.bo.ArticleVendu;
 import com.eni.ProjetJava.service.ArticleVenduService;

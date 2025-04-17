@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static com.eni.ProjetJava.service.ConstanteService.CD_ERR_NOT_FOUND;
+import static com.eni.ProjetJava.service.ConstanteService.CD_SUCCESS;
+
 @Service
 public class UtilisateurService {
 
@@ -14,6 +19,16 @@ public class UtilisateurService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public ReponseService<List<Utilisateur>> getAll() {
+        List<Utilisateur> utilisateur = utilisateurDao.selectAll();
+
+        if (utilisateur.isEmpty()){
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Liste d'utilisateurs vide", utilisateur);
+        }
+
+        return ReponseService.construireReponse(CD_SUCCESS, "Liste des utilisateurs récupérée", utilisateur);
+    }
 
     public Utilisateur findByEmail(String email) {
         return utilisateurDao.findByEmail(email);
@@ -46,5 +61,14 @@ public class UtilisateurService {
         utilisateurDao.save(utilisateur);
 
         return null;
+    }
+
+    public String supprimerUtilisateurParEmail(String email) {
+        Utilisateur utilisateur = utilisateurDao.findByEmail(email);
+        if (utilisateur == null) {
+            return ConstanteService.CD_ERR_NOT_FOUND;
+        }
+        utilisateurDao.deleteByEmail(email);
+        return ConstanteService.CD_SUCCESS;
     }
 }

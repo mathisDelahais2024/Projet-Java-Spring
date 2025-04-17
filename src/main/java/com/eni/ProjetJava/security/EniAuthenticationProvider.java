@@ -1,8 +1,6 @@
 package com.eni.ProjetJava.security;
 
 import com.eni.ProjetJava.bo.Utilisateur;
-import com.eni.ProjetJava.service.ConstanteService;
-import com.eni.ProjetJava.service.ReponseService;
 import com.eni.ProjetJava.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -12,8 +10,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import static com.eni.ProjetJava.service.ConstanteService.CD_CREATED;
 
 @Component
 public class EniAuthenticationProvider implements AuthenticationProvider {
@@ -35,7 +31,7 @@ public class EniAuthenticationProvider implements AuthenticationProvider {
         Utilisateur utilisateur = utilisateurService.findByEmail(email);
 
         if (utilisateur == null || !passwordEncoder.matches(motDePasse, utilisateur.getMotDePasse())) {
-            ReponseService.construireReponse(ConstanteService.CD_ERR_UNAUTHORIZED, "Email ou mot de passe invalide.", null);
+            throw new UsernameNotFoundException("Email ou mot de passe invalide");
         }
 
         EniUserDetails userDetails = new EniUserDetails(utilisateur);

@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.eni.ProjetJava.service.ConstanteService.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -94,5 +95,29 @@ public class UtilisateurServiceTest {
         assertNull(result, "La réponse ne doit pas contenir d'erreur");
 
         verify(utilisateurDao).save(any(Utilisateur.class));
+    }
+
+    @Test
+    void testSupprimerUtilisateurParEmail_UtilisateurNonTrouve() {
+        String email = "inexistant@exemple.com";
+        when(utilisateurDao.findByEmail(email)).thenReturn(null);
+
+        String resultat = utilisateurService.supprimerUtilisateurParEmail(email);
+
+        assertEquals(CD_ERR_NOT_FOUND, resultat, "Le code d'erreur devrait être 404 si l'utilisateur n'existe pas.");
+    }
+
+    @Test
+    void testSupprimerUtilisateurParEmail_Succes() {
+        String email = "utilisateur@exemple.com";
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setEmail(email);
+
+        when(utilisateurDao.findByEmail(email)).thenReturn(utilisateur);
+
+        String resultat = utilisateurService.supprimerUtilisateurParEmail(email);
+
+        assertEquals(CD_SUCCESS, resultat, "Le code retour attendu est 200 pour une suppression réussie.");
+        verify(utilisateurDao).deleteByEmail(email);
     }
 }

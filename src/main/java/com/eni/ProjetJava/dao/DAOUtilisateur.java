@@ -13,7 +13,6 @@ public class DAOUtilisateur implements IDAOUtilisateur {
     private final List<Utilisateur> utilisateurs = new ArrayList<>();
 
     public DAOUtilisateur(PasswordEncoder motDePasseEncoder) {
-        // Simule une BDD avec 1 admin
         Utilisateur NouveauUtilisateur = new Utilisateur();
         NouveauUtilisateur.setNoUtilisateur("1");
         NouveauUtilisateur.setPseudo("admin");
@@ -42,4 +41,7 @@ public class DAOUtilisateur implements IDAOUtilisateur {
     public void save(Utilisateur utilisateur) {
         utilisateurs.add(utilisateur);
     }
+
+    @Override
+    public void deleteByEmail(String email){utilisateurs.removeIf(u -> u.getEmail().equalsIgnoreCase(email));}
 }

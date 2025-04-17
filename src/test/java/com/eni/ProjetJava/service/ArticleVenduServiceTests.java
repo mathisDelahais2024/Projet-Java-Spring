@@ -1,10 +1,8 @@
-package com.eni.ProjetJava;
+package com.eni.ProjetJava.service;
 
 import com.eni.ProjetJava.bo.ArticleVendu;
 import com.eni.ProjetJava.bo.Categorie;
 import com.eni.ProjetJava.bo.Utilisateur;
-import com.eni.ProjetJava.service.ArticleVenduService;
-import com.eni.ProjetJava.service.ReponseService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-public class ArticleVenduTests {
+public class ArticleVenduServiceTests {
 
     @Autowired
     ArticleVenduService articleVenduService;

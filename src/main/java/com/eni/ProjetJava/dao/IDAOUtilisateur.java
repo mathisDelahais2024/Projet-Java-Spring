@@ -7,5 +7,5 @@ import java.util.List;
 public interface IDAOUtilisateur {
     List<Utilisateur> selectAll();
     Utilisateur findByEmail(String email);
-    void insert(Utilisateur utilisateur);
+    void save(Utilisateur utilisateur);
 }

@@ -39,7 +39,7 @@ public class DAOUtilisateur implements IDAOUtilisateur {
     }
 
     @Override
-    public void insert(Utilisateur utilisateur) {
+    public void save(Utilisateur utilisateur) {
         utilisateurs.add(utilisateur);
     }
 }

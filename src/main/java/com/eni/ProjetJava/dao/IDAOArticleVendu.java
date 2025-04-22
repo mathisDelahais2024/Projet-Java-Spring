@@ -10,4 +10,5 @@ public interface IDAOArticleVendu {
     void insert(ArticleVendu articleVendu);
     void update(ArticleVendu articleVendu);
     void delete(String noArticle);
+    List<ArticleVendu> selectByNomAndCategorie(String nom, String noCategorie);
 }

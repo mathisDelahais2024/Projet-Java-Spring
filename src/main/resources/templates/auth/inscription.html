@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Créer un compte - ENI-Enchères</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-4">ENI-Enchères</h1>
+    <h2 class="text-xl font-semibold text-center mb-6">Créer un compte</h2>
+
+    <form action="/inscription" method="POST" class="space-y-4">
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="pseudo">Pseudo :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="pseudo" name="pseudo" required />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="nom">Nom :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="nom" name="nom" required />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="prenom">Prénom :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="prenom" name="prenom" required />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="email">Email :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="email" id="email" name="email" required />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="telephone">Téléphone :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="tel" id="telephone" name="telephone" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="rue">Rue :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="rue" name="rue" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="codePostal">Code postal :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="codePostal" name="codePostal" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="ville">Ville :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="ville" name="ville" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="motDePasse">Mot de passe :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="password" id="motDePasse" name="motDePasse" required />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1" for="confirmation">Confirmation :</label>
+            <input class="w-full border border-gray-300 rounded px-3 py-2" type="password" id="confirmation" name="confirmation" required />
+        </div>
+
+        <div class="flex justify-between pt-4">
+            <button type="submit" onclick="window.location.href='/accueil'" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Créer</button>
+            <button type="reset" onclick="window.location.href='/connexion'" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Annuler</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

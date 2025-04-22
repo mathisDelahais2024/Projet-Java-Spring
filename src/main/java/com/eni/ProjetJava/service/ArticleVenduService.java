@@ -20,7 +20,7 @@ public class ArticleVenduService {
         List<ArticleVendu> articles = daoArticleVendu.selectAll();
 
         if (articles.isEmpty()){
-            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Liste vide", articles);
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Liste d'articles vide", articles);
         }
 
         return ReponseService.construireReponse(CD_SUCCESS, "Liste des articles récupérée", articles);

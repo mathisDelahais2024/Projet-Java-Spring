@@ -26,8 +26,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	//Connection à la bdd
-	//implementation 'com.microsoft.sqlserver:mssql-jdbc:12.4.2.jre17'
 }
 
 tasks.named('test') {

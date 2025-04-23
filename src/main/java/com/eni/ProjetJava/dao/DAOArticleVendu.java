@@ -51,4 +51,14 @@ public class DAOArticleVendu implements IDAOArticleVendu {
     public void delete(String noArticle) {
         articleVendus.removeIf(article -> article.getNoArticle().equals(noArticle));
     }
+
+    @Override
+    public List<ArticleVendu> selectByNomAndCategorie(String nom, String noCategorie) {
+        return articleVendus.stream()
+                .filter(article ->
+                        (nom == null || article.getNomArticle().toLowerCase().contains(nom.toLowerCase())) &&
+                                (noCategorie == null || article.getCategorie().getNoCategorie().equals(noCategorie))
+                )
+                .toList();
+    }
 }

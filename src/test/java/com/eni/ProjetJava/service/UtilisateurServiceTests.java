@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class UtilisateurServiceTest {
+public class UtilisateurServiceTests {
     @Mock
     private IDAOUtilisateur utilisateurDao;
 

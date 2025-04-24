@@ -27,7 +27,7 @@ public class EnchereController {
     }
 
     @GetMapping("/getById")
-    public String getEnchereById(@RequestParam int id, Model model) {
+    public String getEnchereById(@RequestParam String id, Model model) {
         ReponseService<Enchere> reponse = enchereService.getById(id);
         if (reponse.getCode().equals(CD_ERR_NOT_FOUND)) {
             return "error-page.html";
@@ -63,5 +63,18 @@ public class EnchereController {
         ReponseService<List<Enchere>> response = enchereService.getEncheresParEtat(etat);
         model.addAttribute("encheres", response.getData());
         return "encheres-filtrees";
+    }
+
+    @PostMapping("/proposer")
+    public String proposerEnchere(@RequestParam String idArticle, @RequestParam String email, @RequestParam float montant, Model model) {
+        ReponseService<Enchere> reponse = enchereService.proposerEnchere(idArticle, email, montant);
+
+        if (!CD_SUCCESS.equals(reponse.getCode())) {
+            model.addAttribute("error", reponse.getMessage());
+            return "error-page";
+        }
+
+        model.addAttribute("enchere", reponse.getData());
+        return "confirmation-enchere";
     }
 }

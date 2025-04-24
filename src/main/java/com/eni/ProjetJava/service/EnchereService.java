@@ -7,6 +7,8 @@ import com.eni.ProjetJava.dao.IDAOUtilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,7 @@ public class EnchereService {
         return ReponseService.construireReponse(CD_SUCCESS, "Toutes les enchères récupérées", encheres);
     }
 
-    public ReponseService<Enchere> getById(int id) {
+    public ReponseService<Enchere> getById(String id) {
         Enchere enchere = daoEnchere.selectById(id);
         if (enchere == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
@@ -90,5 +92,53 @@ public class EnchereService {
                 .collect(Collectors.toList());
 
         return ReponseService.construireReponse(CD_SUCCESS, "Enchères filtrées par état récupérées", encheresFiltrees);
+    }
+
+    public ReponseService<Enchere> proposerEnchere(String noArticle, String email, float montant) {
+        Enchere enchereActuelle = daoEnchere.selectById(noArticle);
+        if (enchereActuelle == null) {
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Article non trouvé", null);
+        }
+
+        LocalDate aujourdHui = LocalDate.now();
+        if (enchereActuelle.getArticle().getDateFinEncheres() != null &&
+                !aujourdHui.isBefore(enchereActuelle.getArticle().getDateFinEncheres())) {
+            return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "L'enchère est terminée", null);
+        }
+
+        Utilisateur encherisseur = daoUtilisateur.findByEmail(email);
+        if (encherisseur == null) {
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Utilisateur non trouvé", null);
+        }
+
+        if (montant <= enchereActuelle.getMontantEnchere()) {
+            return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "Le montant doit être supérieur à l'enchère actuelle", null);
+        }
+
+        if (encherisseur.getCredit() < montant) {
+            return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "Crédit insuffisant", null);
+        }
+
+        Utilisateur ancien = enchereActuelle.getGagnant();
+        if (ancien != null && !ancien.getEmail().equals(encherisseur.getEmail())) {
+            ancien.setCredit(ancien.getCredit() + enchereActuelle.getMontantEnchere());
+            daoUtilisateur.update(ancien);
+        }
+
+        encherisseur.setCredit(encherisseur.getCredit() - montant);
+        daoUtilisateur.update(encherisseur);
+
+        enchereActuelle.setMontantEnchere(montant);
+        enchereActuelle.setDateEnchere(LocalDate.now());
+        enchereActuelle.setEncherisseur(encherisseur);
+        enchereActuelle.setGagnant(encherisseur);
+
+        daoEnchere.update(enchereActuelle);
+
+        return ReponseService.construireReponse(CD_SUCCESS, "Enchère proposée avec succès", enchereActuelle);
+    }
+
+    public List<Enchere> rechercherEncheres(String libelle, String nomArticle) {
+        return getEncheresPubliques(libelle, nomArticle).getData();
     }
 }

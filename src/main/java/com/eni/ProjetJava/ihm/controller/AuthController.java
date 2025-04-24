@@ -1,5 +1,8 @@
 package com.eni.ProjetJava.ihm.controller;
 
+import com.eni.ProjetJava.bo.Categorie;
+import com.eni.ProjetJava.dao.DAOCategorie;
+import com.eni.ProjetJava.dao.IDAOCategorie;
 import org.springframework.ui.Model;
 import com.eni.ProjetJava.bo.Enchere;
 import com.eni.ProjetJava.service.EnchereService;
@@ -21,13 +24,14 @@ public class AuthController {
     @Autowired
     private EnchereService enchereService;
 
+    @Autowired
+    private IDAOCategorie daoCategorie;
+
     @GetMapping("/")
-    public String afficherAccueil(
-            @RequestParam(required = false) String categorie,
-            @RequestParam(required = false) String search,
-            Model model
+    public String afficherAccueil(@RequestParam(required = false) String categorie, @RequestParam(required = false) String search, Model model
     ) {
         List<Enchere> encheres;
+        List<Categorie> categories = daoCategorie.selectAll();
 
         if ((categorie != null && !categorie.isEmpty()) || (search != null && !search.isEmpty())) {
             encheres = enchereService.rechercherEncheres(categorie, search);
@@ -35,7 +39,11 @@ public class AuthController {
             encheres = enchereService.getEncheresPubliques(null, null).getData();
         }
 
+        model.addAttribute("categories", categories);
         model.addAttribute("encheresPubliques", encheres);
+
+        model.addAttribute("categorie", categorie);
+        model.addAttribute("search", search);
         return "accueil";
     }
 

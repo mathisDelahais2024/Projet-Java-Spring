@@ -1,24 +1,52 @@
 package com.eni.ProjetJava.bo;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class ArticleVendu {
-    private String noArticle;
-    private String nomArticle;
-    private String description;
-    private LocalDate dateDebutEncheres;
-    private LocalDate dateFinEncheres;
-    private float miseAPrix;
-    private float prixVente;
-    private String etatVente;
-    private Categorie categorie;
-    private Utilisateur vendeur;
-    private Retrait retrait;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long noArticle;
+
+    @Column(nullable = false)
+    private String nomArticle;
+
+    @Column(length = 1000)
+    private String description;
+
+    @Column(nullable = false)
+    private LocalDate dateDebutEncheres;
+
+    @Column(nullable = false)
+    private LocalDate dateFinEncheres;
+
+    @Column(nullable = false)
+    private float miseAPrix;
+
+    private float prixVente;
+
+    private String etatVente;
+
+    @ManyToOne
+    @JoinColumn(name = "categorie_id")
+    private Categorie categorie;
+
+    @ManyToOne
+    @JoinColumn(name = "vendeur_id")
+    private Utilisateur vendeur;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "retrait_id")
+    private Retrait retrait;
 
     public ArticleVendu() {}
 
-    public ArticleVendu(String noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, String etatVente, Categorie categorie, Retrait retrait) {
+    public ArticleVendu(Long noArticle, String nomArticle, String description,
+                        LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+                        float miseAPrix, float prixVente, String etatVente,
+                        Categorie categorie, Utilisateur vendeur, Retrait retrait) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -28,14 +56,23 @@ public class ArticleVendu {
         this.prixVente = prixVente;
         this.etatVente = etatVente;
         this.categorie = categorie;
+        this.vendeur = vendeur;
         this.retrait = retrait;
     }
 
-    public String getNoArticle() {
+    public String getNomArticle() {
+        return nomArticle;
+    }
+
+    public void setNomArticle(String nomArticle) {
+        this.nomArticle = nomArticle;
+    }
+
+    public Long getNoArticle() {
         return noArticle;
     }
 
-    public void setNoArticle(String noArticle) {
+    public void setNoArticle(Long noArticle) {
         this.noArticle = noArticle;
     }
 
@@ -45,14 +82,6 @@ public class ArticleVendu {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getNomArticle() {
-        return nomArticle;
-    }
-
-    public void setNomArticle(String nomArticle) {
-        this.nomArticle = nomArticle;
     }
 
     public LocalDate getDateDebutEncheres() {
@@ -71,20 +100,20 @@ public class ArticleVendu {
         this.dateFinEncheres = dateFinEncheres;
     }
 
-    public float getPrixVente() {
-        return prixVente;
-    }
-
-    public void setPrixVente(float prixVente) {
-        this.prixVente = prixVente;
-    }
-
     public float getMiseAPrix() {
         return miseAPrix;
     }
 
     public void setMiseAPrix(float miseAPrix) {
         this.miseAPrix = miseAPrix;
+    }
+
+    public float getPrixVente() {
+        return prixVente;
+    }
+
+    public void setPrixVente(float prixVente) {
+        this.prixVente = prixVente;
     }
 
     public String getEtatVente() {
@@ -118,4 +147,5 @@ public class ArticleVendu {
     public void setRetrait(Retrait retrait) {
         this.retrait = retrait;
     }
+
 }

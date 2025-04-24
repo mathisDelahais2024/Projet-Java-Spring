@@ -30,7 +30,6 @@ public class Enchere {
     @JoinColumn(name = "gagnant_id")
     private Utilisateur gagnant;
 
-
     public Enchere() {}
 
     public Enchere(LocalDate dateEnchere, float montantEnchere, String etat, ArticleVendu article, Utilisateur encherisseur, Utilisateur gagnant) {
@@ -97,4 +96,5 @@ public class Enchere {
     public void setGagnant(Utilisateur gagnant) {
         this.gagnant = gagnant;
     }
+
 }

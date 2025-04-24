@@ -79,4 +79,6 @@ public class EnchereController {
         model.addAttribute("message", "Le nouveau prix est " + montant + " points.");
         return "details-enchere"; // <-- important si tu veux rester sur la même page
     }
+
+
 }

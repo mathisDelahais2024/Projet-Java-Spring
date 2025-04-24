@@ -6,71 +6,89 @@
     <title>Créer un compte - ENI-Enchères</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4 py-10 font-sans">
+<div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
 
-<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <h1 class="text-2xl font-bold text-center mb-4">ENI-Enchères</h1>
-    <h2 class="text-xl font-semibold text-center mb-6">Créer un compte</h2>
+    <!-- En-tête -->
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">ENI-Enchères</h1>
+    <h2 class="text-xl font-semibold text-center text-gray-800 mb-6">Créer un compte</h2>
 
-    <form action="/inscription" method="POST" class="space-y-4">
+    <form action="/inscription" method="POST" class="space-y-4 text-sm text-gray-700">
 
+        <!-- Champs du formulaire -->
         <div>
-            <label class="block text-sm font-medium mb-1" for="pseudo">Pseudo :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="pseudo" name="pseudo" required />
+            <label for="pseudo" class="block font-medium mb-1">Pseudo :</label>
+            <input type="text" id="pseudo" name="pseudo" required
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="nom">Nom :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="nom" name="nom" required />
+            <label for="nom" class="block font-medium mb-1">Nom :</label>
+            <input type="text" id="nom" name="nom" required
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="prenom">Prénom :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="prenom" name="prenom" required />
+            <label for="prenom" class="block font-medium mb-1">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="email">Email :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="email" id="email" name="email" required />
+            <label for="email" class="block font-medium mb-1">Email :</label>
+            <input type="email" id="email" name="email" required
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="telephone">Téléphone :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="tel" id="telephone" name="telephone" />
+            <label for="telephone" class="block font-medium mb-1">Téléphone :</label>
+            <input type="tel" id="telephone" name="telephone"
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="rue">Rue :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="rue" name="rue" />
+            <label for="rue" class="block font-medium mb-1">Rue :</label>
+            <input type="text" id="rue" name="rue"
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="codePostal">Code postal :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="codePostal" name="codePostal" />
+            <label for="codePostal" class="block font-medium mb-1">Code postal :</label>
+            <input type="text" id="codePostal" name="codePostal"
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="ville">Ville :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="text" id="ville" name="ville" />
+            <label for="ville" class="block font-medium mb-1">Ville :</label>
+            <input type="text" id="ville" name="ville"
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="motDePasse">Mot de passe :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="password" id="motDePasse" name="motDePasse" required />
+            <label for="motDePasse" class="block font-medium mb-1">Mot de passe :</label>
+            <input type="password" id="motDePasse" name="motDePasse" required
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1" for="confirmation">Confirmation :</label>
-            <input class="w-full border border-gray-300 rounded px-3 py-2" type="password" id="confirmation" name="confirmation" required />
+            <label for="confirmation" class="block font-medium mb-1">Confirmation :</label>
+            <input type="password" id="confirmation" name="confirmation" required
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
         </div>
 
+        <!-- Boutons -->
         <div class="flex justify-between pt-4">
-            <button type="submit" onclick="window.location.href='/accueil'" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Créer</button>
-            <button type="reset" onclick="window.location.href='/connexion'" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Annuler</button>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                Créer
+            </button>
+            <button type="reset" onclick="window.location.href='/connexion'"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
+                Annuler
+            </button>
         </div>
 
     </form>
 </div>
-
 </body>
+
 </html>

@@ -3,67 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>Détail vente - ENI-Enchères</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-6 font-sans">
+<body class="bg-gray-100 py-10 px-4 font-sans">
+<div class="w-full max-w-full sm:max-w-2xl mx-auto bg-white px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-xl">
 
-<div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
-  <h1 class="text-2xl font-bold text-center mb-4">ENI-Enchères</h1>
+  <!-- Titre principal -->
+  <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">ENI-Enchères</h1>
 
   <!-- Message si l'utilisateur est le gagnant -->
-  <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="text-center mb-4">
-    <p class="text-green-600 font-semibold text-lg">Vous avez remporté l'enchère</p>
+  <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="bg-green-100 text-green-700 text-center font-medium py-3 rounded mb-4">
+    🎉 Vous avez remporté l'enchère !
   </div>
 
-  <h2 class="text-xl font-semibold mb-2 text-center">Détail vente</h2>
-  <h3 class="text-lg font-medium mb-2" th:text="${enchere.article.nomArticle}">Nom de l'article</h3>
+  <!-- Détails de l'article -->
+  <h2 class="text-2xl font-semibold text-center mb-4">Détail de la vente</h2>
+  <h3 class="text-xl font-medium text-center text-gray-800 mb-4" th:text="${enchere.article.nomArticle}">Nom de l'article</h3>
 
-  <div class="bg-gray-200 h-48 w-full mb-4 flex items-center justify-center">
-    <span class="text-gray-500">Image</span>
+  <div class="w-full h-48 bg-gray-200 flex items-center justify-center rounded mb-6">
+    <span class="text-gray-500 text-sm">Image</span>
   </div>
 
-  <p class="mb-2"><strong>Description :</strong> <span th:text="${enchere.article.description}"></span></p>
-  <p class="mb-2"><strong>Catégorie :</strong> <span th:text="${enchere.article.categorie}"></span></p>
-  <p class="mb-2"><strong>Meilleure offre :</strong> <span th:text="${enchere.montantEnchere}"></span> pts</p>
-  <p class="mb-2"><strong>Mise à prix :</strong> <span th:text="${enchere.article.miseAPrix}"></span> points</p>
+  <div class="space-y-2 text-sm text-gray-700">
+    <p><strong>Description :</strong> <span th:text="${enchere.article.description}"></span></p>
+    <p><strong>Catégorie :</strong> <span th:text="${enchere.article.categorie}"></span></p>
+    <p><strong>Meilleure offre :</strong> <span th:text="${enchere.montantEnchere}"></span> pts</p>
+    <p><strong>Mise à prix :</strong> <span th:text="${enchere.article.miseAPrix}"></span> pts</p>
+  </div>
 
-  <!-- Bloc de retrait si l'utilisateur est le gagnant -->
-  <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="border p-4 rounded-md shadow-inner bg-gray-50 mt-4">
-    <h4 class="text-md font-semibold mb-2">Retrait</h4>
+  <!-- Retrait si gagnant -->
+  <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="mt-6 bg-gray-50 border border-gray-200 rounded-xl p-5 shadow-inner">
+    <h4 class="text-lg font-semibold mb-3">📦 Retrait</h4>
     <p th:text="${enchere.article.rue}"></p>
     <p th:text="${enchere.article.codePostal + ' ' + enchere.article.ville}"></p>
     <p><strong>Vendeur :</strong> <a href="#" class="text-blue-600 underline" th:text="${enchere.article.vendeur.pseudo}"></a></p>
-    <p><strong>Tel :</strong> <span th:text="${enchere.article.vendeur.telephone}"></span></p>
+    <p><strong>Téléphone :</strong> <span th:text="${enchere.article.vendeur.telephone}"></span></p>
 
     <form th:action="@{/enchere/retrait}" method="post" class="mt-4">
       <input type="hidden" name="id" th:value="${enchere.article.noArticle}" />
-      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-        Retrait effectué
+      <button type="submit" class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+        ✅ Retrait effectué
       </button>
     </form>
   </div>
 
-  <!-- Formulaire enchère (si non gagnant) -->
-  <div th:if="${utilisateur == null or enchere.gagnant == null or utilisateur.email != enchere.gagnant.email}">
-    <form th:action="@{/enchere/proposer}" method="post" class="flex items-center justify-between mt-4">
+  <!-- Formulaire d'enchère -->
+  <div th:if="${utilisateur == null or enchere.gagnant == null or utilisateur.email != enchere.gagnant.email}" class="mt-6">
+    <form th:action="@{/enchere/proposer}" method="post" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
       <input type="hidden" name="id" th:value="${enchere.article.noArticle}" />
-      <input type="number" name="montant" required
-             class="w-24 border p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
-             placeholder="220" />
-      <button type="submit"
-              class="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-        Enchérir
-      </button>
+      <input type="number" name="montant" required placeholder="Votre offre"
+             class="w-full sm:w-32 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <div class="text-center mt-8">
+        <button type="submit"
+                class="mt-4 sm:mt-0 sm:ml-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+          Enchérir
+        </button>
+      </div>
     </form>
   </div>
 
   <!-- Message de confirmation -->
-  <div th:if="${message}" class="mt-4 text-green-600 font-semibold">
+  <div th:if="${message}" class="mt-4 text-green-700 font-medium text-center">
     <p th:text="${message}"></p>
   </div>
 
-  <a href="/" class="inline-block mt-6 bg-gray-300 px-4 py-2 rounded-lg text-center hover:bg-gray-400">Back</a>
+  <!-- Bouton retour -->
+  <div class="text-center mt-8">
+    <a href="/" class="inline-block bg-gray-300 text-gray-800 px-5 py-2 rounded-lg hover:bg-gray-400 transition">
+      Retour
+    </a>
+  </div>
 </div>
-
 </body>
 </html>

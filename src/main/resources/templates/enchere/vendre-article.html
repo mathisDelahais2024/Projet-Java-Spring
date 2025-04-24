@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nouvelle vente - ENI-Enchères</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<div class="flex justify-center items-center min-h-screen py-10">
+  <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md sm:px-8">
+
+    <a th:href="@{/}">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">ENI-Enchères</h1>
+    </a>
+    <h2 class="text-center text-lg font-semibold mb-6">Nouvelle vente</h2>
+
+    <form class="space-y-6">
+
+      <!-- Champ Article -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Article :</label>
+        <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <!-- Champ Catégorie -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Catégorie :</label>
+        <select class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>Sélectionner</option>
+        </select>
+      </div>
+
+      <!-- Champ Description -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Description :</label>
+        <textarea class="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+
+      <!-- Photo de l'article -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Photo de l'article</label>
+        <button type="button" class="mb-2 px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">UPLOADER</button>
+        <div class="w-full h-32 border border-gray-300 bg-gray-100 flex items-center justify-center rounded">
+          <span class="text-gray-400 text-sm">Aperçu image</span>
+        </div>
+      </div>
+
+      <!-- Champ Prix initial -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Prix initial :</label>
+        <input type="number" value="150" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <!-- Champ Début et Fin de l'enchère -->
+      <div class="flex flex-col sm:flex-row sm:space-x-4">
+        <div class="flex-1 mb-4 sm:mb-0">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Début de l'enchère :</label>
+          <input type="date" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="flex-1">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fin de l'enchère :</label>
+          <input type="date" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+      </div>
+
+
+      <!-- Informations Retrait -->
+      <div class="mt-4">
+        <p class="text-sm font-medium text-gray-700">Retrait :</p>
+        <p class="text-sm text-gray-700">5 rue des Pinsons, 44000 Nantes</p>
+      </div>
+
+      <!-- Boutons de soumission -->
+      <div class="flex justify-between mt-6">
+        <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">Enregistrer</button>
+        <button type="button" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">Annuler</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>

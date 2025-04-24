@@ -95,4 +95,9 @@ public class AuthController {
     public String showProfilPage() {
         return "profil/profil";
     }
+
+    @GetMapping("/vendre")
+    public String showVendrePage() {
+        return "enchere/vendre-article";
+    }
 }

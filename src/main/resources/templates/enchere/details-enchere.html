@@ -10,7 +10,9 @@
 <div class="w-full max-w-full sm:max-w-2xl mx-auto bg-white px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-xl">
 
   <!-- Titre principal -->
-  <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">ENI-Enchères</h1>
+  <a th:href="@{/}">
+    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">ENI-Enchères</h1>
+  </a>
 
   <!-- Message si l'utilisateur est le gagnant -->
   <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="bg-green-100 text-green-700 text-center font-medium py-3 rounded mb-4">

@@ -9,6 +9,8 @@ public class Enchere {
     private ArticleVendu article;
     private Utilisateur encherisseur;
     private Utilisateur gagnant;
+    private boolean retraitEffectue;
+
 
 
     public Enchere() {}
@@ -60,4 +62,13 @@ public class Enchere {
     public void setGagnant(Utilisateur gagnant) {
         this.gagnant = gagnant;
     }
+
+    public boolean isRetraitEffectue() {
+        return retraitEffectue;
+    }
+
+    public void setRetraitEffectue(boolean retraitEffectue) {
+        this.retraitEffectue = retraitEffectue;
+    }
+
 }

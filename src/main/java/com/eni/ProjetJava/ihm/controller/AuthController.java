@@ -21,6 +21,8 @@ public class AuthController {
     @Autowired
     private EnchereService enchereService;
 
+
+
     @GetMapping("/")
     public String afficherAccueil(
             @RequestParam(required = false) String categorie,

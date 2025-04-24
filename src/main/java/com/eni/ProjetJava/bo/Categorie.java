@@ -1,21 +1,37 @@
 package com.eni.ProjetJava.bo;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
 public class Categorie {
-    private String noCategorie;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long noCategorie;
+
+    @Column(nullable = false, length = 50)
     private String libelle;
+
+    @OneToMany(mappedBy = "categorie")
+    private List<ArticleVendu> articles;
 
     public Categorie() {}
 
-    public Categorie(String noCategorie, String libelle) {
-        this.noCategorie = noCategorie;
-        this.libelle = libelle;
+    public List<ArticleVendu> getArticles() {
+        return articles;
     }
 
-    public String getNoCategorie() {
+    public void setArticles(List<ArticleVendu> articles) {
+        this.articles = articles;
+    }
+
+    public Long getNoCategorie() {
         return noCategorie;
     }
 
-    public void setNoCategorie(String noCategorie) {
+    public void setNoCategorie(Long noCategorie) {
         this.noCategorie = noCategorie;
     }
 
@@ -26,4 +42,5 @@ public class Categorie {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
 }

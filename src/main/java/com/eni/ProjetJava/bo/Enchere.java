@@ -1,17 +1,45 @@
 package com.eni.ProjetJava.bo;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class Enchere {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long noEnchere;
+
+    @Column(nullable = false)
     private LocalDate dateEnchere;
+
+    @Column(nullable = false)
     private float montantEnchere;
+
     private String etat;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "article_id")
     private ArticleVendu article;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "encherisseur_id")
     private Utilisateur encherisseur;
+
+    @ManyToOne
+    @JoinColumn(name = "gagnant_id")
     private Utilisateur gagnant;
 
-
     public Enchere() {}
+
+    public Enchere(LocalDate dateEnchere, float montantEnchere, String etat, ArticleVendu article, Utilisateur encherisseur, Utilisateur gagnant) {
+        this.dateEnchere = dateEnchere;
+        this.montantEnchere = montantEnchere;
+        this.etat = etat;
+        this.article = article;
+        this.encherisseur = encherisseur;
+        this.gagnant = gagnant;
+    }
 
     public LocalDate getDateEnchere() {
         return dateEnchere;
@@ -19,6 +47,14 @@ public class Enchere {
 
     public void setDateEnchere(LocalDate dateEnchere) {
         this.dateEnchere = dateEnchere;
+    }
+
+    public Long getNoEnchere() {
+        return noEnchere;
+    }
+
+    public void setNoEnchere(Long noEnchere) {
+        this.noEnchere = noEnchere;
     }
 
     public float getMontantEnchere() {
@@ -60,4 +96,5 @@ public class Enchere {
     public void setGagnant(Utilisateur gagnant) {
         this.gagnant = gagnant;
     }
+
 }

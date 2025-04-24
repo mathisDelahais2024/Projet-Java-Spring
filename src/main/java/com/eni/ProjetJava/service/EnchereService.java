@@ -2,13 +2,12 @@ package com.eni.ProjetJava.service;
 
 import com.eni.ProjetJava.bo.Enchere;
 import com.eni.ProjetJava.bo.Utilisateur;
-import com.eni.ProjetJava.dao.IDAOEnchere;
-import com.eni.ProjetJava.dao.IDAOUtilisateur;
+import com.eni.ProjetJava.repo.EnchereRepository;
+import com.eni.ProjetJava.repo.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,18 +17,18 @@ import static com.eni.ProjetJava.service.ConstanteService.*;
 public class EnchereService {
 
     @Autowired
-    private IDAOEnchere daoEnchere;
+    private EnchereRepository enchereRepository;
 
     @Autowired
-    private IDAOUtilisateur daoUtilisateur;
+    private UtilisateurRepository utilisateurRepository;
 
     public ReponseService<List<Enchere>> getAll() {
-        List<Enchere> encheres = daoEnchere.selectAll();
+        List<Enchere> encheres = enchereRepository.findAll();
         return ReponseService.construireReponse(CD_SUCCESS, "Toutes les enchères récupérées", encheres);
     }
 
-    public ReponseService<Enchere> getById(String id) {
-        Enchere enchere = daoEnchere.selectById(id);
+    public ReponseService<Enchere> getById(Long noEnchere) {
+        Enchere enchere = enchereRepository.findById(noEnchere).orElse(null);
         if (enchere == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
         }
@@ -37,7 +36,9 @@ public class EnchereService {
     }
 
     public ReponseService<List<Enchere>> getEncheresPubliques(String libelle, String nomArticle) {
-        List<Enchere> encheres = daoEnchere.selectAll();
+        List<Enchere> encheres = enchereRepository.findAll();
+
+        System.out.println("Nombre d'enchères récupérées: " + encheres.size());
 
         List<Enchere> encheresFiltrees = encheres.stream().filter(e -> {
             boolean filtreNom = (nomArticle == null || nomArticle.isEmpty())
@@ -53,105 +54,115 @@ public class EnchereService {
         return ReponseService.construireReponse(CD_SUCCESS, "Enchères filtrées récupérées", encheresFiltrees);
     }
 
-    public ReponseService<List<Enchere>> getEncheresParUtilisateur(String utilisateurEmail) {
-        Utilisateur utilisateur = daoUtilisateur.findByEmail(utilisateurEmail);
 
+    public ReponseService<List<Enchere>> getEncheresParUtilisateur(String email) {
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
         if (utilisateur == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Utilisateur non trouvé", null);
         }
 
-        List<Enchere> encheres = daoEnchere.selectAll();
-        List<Enchere> encheresUtilisateur = encheres.stream()
-                .filter(enchere -> enchere.getEncherisseur() != null &&
-                        enchere.getEncherisseur().getNoUtilisateur().equals(utilisateur.getNoUtilisateur()))
+        List<Enchere> encheres = enchereRepository.findAll().stream()
+                .filter(e -> e.getEncherisseur() != null && e.getEncherisseur().getEmail().equals(email))
                 .collect(Collectors.toList());
 
-        return ReponseService.construireReponse(CD_SUCCESS, "Enchères de l'utilisateur récupérées", encheresUtilisateur);
+        return ReponseService.construireReponse(CD_SUCCESS, "Enchères de l'utilisateur récupérées", encheres);
     }
 
-    public ReponseService<List<Enchere>> getEncheresGagnees(String utilisateurEmail) {
-        Utilisateur utilisateur = daoUtilisateur.findByEmail(utilisateurEmail);
-
+    public ReponseService<List<Enchere>> getEncheresGagnees(String email) {
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
         if (utilisateur == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Utilisateur non trouvé", null);
         }
 
-        List<Enchere> encheres = daoEnchere.selectAll();
-        List<Enchere> encheresGagnees = encheres.stream()
-                .filter(enchere -> enchere.getGagnant() != null && enchere.getGagnant().getEmail().equals(utilisateurEmail))
+        List<Enchere> encheres = enchereRepository.findAll().stream()
+                .filter(e -> e.getGagnant() != null && e.getGagnant().getEmail().equals(email))
                 .collect(Collectors.toList());
 
-        return ReponseService.construireReponse(CD_SUCCESS, "Enchères gagnées récupérées", encheresGagnees);
+        return ReponseService.construireReponse(CD_SUCCESS, "Enchères gagnées récupérées", encheres);
     }
-
 
     public ReponseService<List<Enchere>> getEncheresParEtat(String etat) {
-        List<Enchere> encheres = daoEnchere.selectAll();
-        List<Enchere> encheresFiltrees = encheres.stream()
-                .filter(enchere -> enchere.getEtat().equals(etat))
+        List<Enchere> encheres = enchereRepository.findAll().stream()
+                .filter(e -> e.getEtat().equals(etat))
                 .collect(Collectors.toList());
 
-        return ReponseService.construireReponse(CD_SUCCESS, "Enchères filtrées par état récupérées", encheresFiltrees);
+        return ReponseService.construireReponse(CD_SUCCESS, "Enchères filtrées par état", encheres);
     }
 
-    public ReponseService<Enchere> proposerEnchere(String noArticle, String email, float montant) {
-        Enchere enchereActuelle = daoEnchere.selectById(noArticle);
+    public ReponseService<Enchere> updateEnchere(Long noEnchere, Enchere enchere) {
+        if (!enchereRepository.existsById(noEnchere)) {
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
+        }
+
+        enchere.setNoEnchere(noEnchere);
+        Enchere updatedEnchere = enchereRepository.save(enchere);
+
+        return ReponseService.construireReponse(CD_SUCCESS, "Enchère mise à jour", updatedEnchere);
+    }
+
+    public ReponseService<Void> deleteEnchere(Long noEnchere) {
+        if (!enchereRepository.existsById(noEnchere)) {
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
+        }
+
+        enchereRepository.deleteById(noEnchere);
+        return ReponseService.construireReponse(CD_SUCCESS, "Enchère supprimée", null);
+    }
+
+    public ReponseService<Enchere> proposerEnchere(Long noArticle, String email, float montant) {
+        // Récupérer l'enchère actuelle en utilisant le repository
+        Enchere enchereActuelle = enchereRepository.findById(noArticle).orElse(null);
         if (enchereActuelle == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Article non trouvé", null);
         }
 
+        // Vérifier que l'enchère n'est pas terminée
         LocalDate aujourdHui = LocalDate.now();
         if (enchereActuelle.getArticle().getDateFinEncheres() != null &&
                 !aujourdHui.isBefore(enchereActuelle.getArticle().getDateFinEncheres())) {
             return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "L'enchère est terminée", null);
         }
 
-        Utilisateur encherisseur = daoUtilisateur.findByEmail(email);
+        // Récupérer l'utilisateur (encherisseur) par email
+        Utilisateur encherisseur = utilisateurRepository.findByEmail(email);
         if (encherisseur == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Utilisateur non trouvé", null);
         }
 
+        // Vérifier que le montant proposé est supérieur à l'enchère actuelle
         if (montant <= enchereActuelle.getMontantEnchere()) {
             return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "Le montant doit être supérieur à l'enchère actuelle", null);
         }
 
+        // Vérifier que l'encherisseur a suffisamment de crédit
         if (encherisseur.getCredit() < montant) {
             return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "Crédit insuffisant", null);
         }
 
+        // Si un ancien gagnant existe, lui redonner son crédit
         Utilisateur ancien = enchereActuelle.getGagnant();
         if (ancien != null && !ancien.getEmail().equals(encherisseur.getEmail())) {
             ancien.setCredit(ancien.getCredit() + enchereActuelle.getMontantEnchere());
-            daoUtilisateur.update(ancien);
+            utilisateurRepository.save(ancien); // Mise à jour de l'ancien gagnant
         }
 
+        // Déduire le montant du crédit de l'encherisseur
         encherisseur.setCredit(encherisseur.getCredit() - montant);
-        daoUtilisateur.update(encherisseur);
+        utilisateurRepository.save(encherisseur); // Mise à jour de l'encherisseur
 
+        // Mettre à jour l'enchère avec le nouveau montant et l'encherisseur
         enchereActuelle.setMontantEnchere(montant);
         enchereActuelle.setDateEnchere(LocalDate.now());
         enchereActuelle.setEncherisseur(encherisseur);
         enchereActuelle.setGagnant(encherisseur);
 
-        daoEnchere.update(enchereActuelle);
+        enchereRepository.save(enchereActuelle); // Mise à jour de l'enchère
 
+        // Retourner la réponse avec l'enchère mise à jour
         return ReponseService.construireReponse(CD_SUCCESS, "Enchère proposée avec succès", enchereActuelle);
     }
 
     public List<Enchere> rechercherEncheres(String libelle, String nomArticle) {
         return getEncheresPubliques(libelle, nomArticle).getData();
     }
-
-    public ReponseService<Enchere> confirmerRetrait(String idArticle) {
-        Enchere enchere = daoEnchere.selectById(idArticle);
-        if (enchere == null) {
-            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
-        }
-
-        enchere.setRetraitEffectue(true);
-        daoEnchere.update(enchere);
-
-        return ReponseService.construireReponse(CD_SUCCESS, "Retrait confirmé", enchere);
-    }
-
 }

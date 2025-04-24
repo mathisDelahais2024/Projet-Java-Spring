@@ -13,9 +13,9 @@ public class DAOArticleVendu implements IDAOArticleVendu {
 
     public List<ArticleVendu> articleVendus = new ArrayList<ArticleVendu>();
 
-    Categorie categorie1 = new Categorie("1", "test");
-    Categorie categorie2 = new Categorie("2", "test");
-    Categorie categorie3 = new Categorie("3", "test");
+    Categorie categorie1 = new Categorie("1", "test1");
+    Categorie categorie2 = new Categorie("2", "test2");
+    Categorie categorie3 = new Categorie("3", "test3");
 
     public DAOArticleVendu(){
         articleVendus.add(new ArticleVendu("1", "Toto", "Desription Toto", LocalDate.of(2025, 4, 15), LocalDate.of(2025, 4, 30), 20, 30, "bon", categorie1));

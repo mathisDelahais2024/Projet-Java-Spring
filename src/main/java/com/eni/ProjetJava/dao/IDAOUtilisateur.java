@@ -9,4 +9,5 @@ public interface IDAOUtilisateur {
     Utilisateur findByEmail(String email);
     void save(Utilisateur utilisateur);
     void deleteByEmail(String email);
+    void update(Utilisateur utilisateur);
 }

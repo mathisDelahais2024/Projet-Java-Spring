@@ -44,4 +44,16 @@ public class DAOUtilisateur implements IDAOUtilisateur {
 
     @Override
     public void deleteByEmail(String email){utilisateurs.removeIf(u -> u.getEmail().equalsIgnoreCase(email));}
+
+    @Override
+    public void update(Utilisateur utilisateur) {
+        for (int i = 0; i < utilisateurs.size(); i++) {
+            if (utilisateurs.get(i).getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+                utilisateurs.set(i, utilisateur);
+                return;
+            }
+        }
+        System.out.println("Utilisateur non trouvé pour mise à jour : " + utilisateur.getNoUtilisateur());
+    }
+
 }

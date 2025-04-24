@@ -38,10 +38,20 @@ public class DAOEnchere implements IDAOEnchere {
     }
 
     @Override
-    public Enchere selectById(int id) {
+    public Enchere selectById(String id) {
         return encheres.stream()
                 .filter(enchere -> enchere.getArticle().getNoArticle().equals(String.valueOf(id)))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public void update(Enchere enchere) {
+        for (int i = 0; i < encheres.size(); i++) {
+            if (encheres.get(i).getArticle().getNoArticle().equals(enchere.getArticle().getNoArticle())) {
+                encheres.set(i, enchere);
+                break;
+            }
+        }
     }
 }

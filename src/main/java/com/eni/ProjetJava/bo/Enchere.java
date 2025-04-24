@@ -1,9 +1,9 @@
 package com.eni.ProjetJava.bo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Enchere {
-    private Date dateEnchere;
+    private LocalDate dateEnchere;
     private float montantEnchere;
     private String etat;
     private ArticleVendu article;
@@ -13,11 +13,11 @@ public class Enchere {
 
     public Enchere() {}
 
-    public Date getDateEnchere() {
+    public LocalDate getDateEnchere() {
         return dateEnchere;
     }
 
-    public void setDateEnchere(Date dateEnchere) {
+    public void setDateEnchere(LocalDate dateEnchere) {
         this.dateEnchere = dateEnchere;
     }
 

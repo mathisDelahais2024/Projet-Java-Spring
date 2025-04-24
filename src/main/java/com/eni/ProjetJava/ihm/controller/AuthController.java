@@ -57,12 +57,38 @@ public class AuthController {
     @GetMapping("/deconnexion")
     public String deconnexion(HttpSession session) {
         session.invalidate();
-        return "redirect:/accueil";
+        return "redirect:/";
     }
 
-    @GetMapping("/inscription")
-    public String showInscriptionPage() {
+    @GetMapping("/inscription-form")
+    public String afficherInscriptionForm() {
         return "auth/inscription";
+    }
+
+    @PostMapping("/inscription")
+    public String inscrireUtilisateur(
+            @RequestParam String pseudo,
+            @RequestParam String nom,
+            @RequestParam String prenom,
+            @RequestParam String email,
+            @RequestParam(required = false) long telephone,
+            @RequestParam(required = false) String rue,
+            @RequestParam(required = false) String codePostal,
+            @RequestParam(required = false) String ville,
+            @RequestParam String motDePasse,
+            @RequestParam String confirmation,
+            Model model
+    ) {
+        // Appel du service d'inscription
+        String erreur = utilisateurService.inscrireUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, confirmation);
+
+        // Vérifier si une erreur a eu lieu pendant l'inscription
+        if (erreur != null) {
+            model.addAttribute("erreur", erreur);
+            return "auth/inscription"; // Rediriger vers la page d'inscription en cas d'erreur
+        }
+
+        return "redirect:/connexion"; // Rediriger vers la page de connexion après l'inscription
     }
 
     @GetMapping("/profil")

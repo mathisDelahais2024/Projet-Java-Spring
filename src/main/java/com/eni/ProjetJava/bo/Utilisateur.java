@@ -21,17 +21,23 @@ public class Utilisateur {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(unique = true)
     private long telephone;
 
+    @Column
     private String rue;
+    @Column
     private String codePostal;
+    @Column
     private String ville;
 
     @Column(nullable = false)
     private String motDePasse;
 
+    @Column
     private float credit;
 
+    @Column
     private boolean administrateur;
 
     public Utilisateur() {}

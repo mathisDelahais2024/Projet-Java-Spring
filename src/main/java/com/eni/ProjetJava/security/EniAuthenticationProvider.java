@@ -29,18 +29,18 @@ public class EniAuthenticationProvider implements AuthenticationProvider {
         String motDePasse = authentication.getCredentials().toString();
 
         Utilisateur utilisateur = utilisateurService.findByEmail(email);
+        if (utilisateur == null) {
+            System.out.println("Utilisateur non trouvé : " + email); // Ajoutez un log ici
+            throw new UsernameNotFoundException("Email non trouvé");
+        }
 
-        if (utilisateur == null || !passwordEncoder.matches(motDePasse, utilisateur.getMotDePasse())) {
-            throw new UsernameNotFoundException("Email ou mot de passe invalide");
+        if (!passwordEncoder.matches(motDePasse, utilisateur.getMotDePasse())) {
+            System.out.println("Mot de passe incorrect pour l'utilisateur : " + email); // Log pour mot de passe incorrect
+            throw new UsernameNotFoundException("Mot de passe incorrect");
         }
 
         EniUserDetails userDetails = new EniUserDetails(utilisateur);
-
-        return new UsernamePasswordAuthenticationToken(
-                userDetails,
-                motDePasse,
-                userDetails.getAuthorities()
-        );
+        return new UsernamePasswordAuthenticationToken(userDetails, motDePasse, userDetails.getAuthorities());
     }
 
     @Override

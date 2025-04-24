@@ -40,35 +40,39 @@ public class UtilisateurService {
         utilisateurRepository.save(utilisateur);
     }
 
-    public String inscrireUtilisateur(String pseudo, String nom, String prenom, String email, long telephone, String rue, String codePostal, String ville, String motDePasse, String confirmMotDePasse) {
-        // Vérification des mots de passe
-        if (!motDePasse.equals(confirmMotDePasse)) {
-            return CD_ERR_BAD_REQUEST;
+    public String inscrireUtilisateur(String pseudo, String nom, String prenom, String email, Long telephone, String rue, String codePostal, String ville, String motDePasse, String confirmMotDePasse) {
+        try {
+            // Vérification des mots de passe
+            if (!motDePasse.equals(confirmMotDePasse)) {
+                return "Mots de passe non identiques";
+            }
+
+            // Vérification si l'email existe déjà
+            if (utilisateurRepository.findByEmail(email) != null) {
+                return "Email déjà utilisé";
+            }
+
+            // Création de l'utilisateur
+            Utilisateur utilisateur = new Utilisateur();
+            utilisateur.setPseudo(pseudo);
+            utilisateur.setNom(nom);
+            utilisateur.setPrenom(prenom);
+            utilisateur.setEmail(email);
+            utilisateur.setTelephone(telephone);
+            utilisateur.setRue(rue);
+            utilisateur.setCodePostal(codePostal);
+            utilisateur.setVille(ville);
+            utilisateur.setMotDePasse(passwordEncoder.encode(motDePasse)); // Hash du mot de passe
+            utilisateur.setAdministrateur(false);
+
+            utilisateurRepository.save(utilisateur);
+            return null;
+        } catch (Exception e) {
+            return "Erreur lors de l'enregistrement de l'utilisateur : " + e.getMessage();
         }
-
-        // Vérification si l'email existe déjà
-        if (utilisateurRepository.findByEmail(email) != null) {
-            return CD_ERR_CONFLICT;
-        }
-
-        // Création de l'utilisateur
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setPseudo(pseudo);
-        utilisateur.setNom(nom);
-        utilisateur.setPrenom(prenom);
-        utilisateur.setEmail(email);
-        utilisateur.setTelephone(telephone);
-        utilisateur.setRue(rue);
-        utilisateur.setCodePostal(codePostal);
-        utilisateur.setVille(ville);
-        utilisateur.setMotDePasse(passwordEncoder.encode(motDePasse));
-        utilisateur.setAdministrateur(false);
-
-        // Sauvegarde dans la base de données
-        utilisateurRepository.save(utilisateur);
-
-        return null;
     }
+
+
 
     public String supprimerUtilisateurParEmail(String email) {
         Utilisateur utilisateur = utilisateurRepository.findByEmail(email);

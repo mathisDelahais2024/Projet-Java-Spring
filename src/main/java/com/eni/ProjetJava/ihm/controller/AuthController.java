@@ -1,8 +1,5 @@
 package com.eni.ProjetJava.ihm.controller;
 
-import com.eni.ProjetJava.bo.Categorie;
-import com.eni.ProjetJava.dao.DAOCategorie;
-import com.eni.ProjetJava.dao.IDAOCategorie;
 import org.springframework.ui.Model;
 import com.eni.ProjetJava.bo.Enchere;
 import com.eni.ProjetJava.service.EnchereService;
@@ -23,9 +20,6 @@ public class AuthController {
 
     @Autowired
     private EnchereService enchereService;
-
-    @Autowired
-    private IDAOCategorie daoCategorie;
 
     @GetMapping("/")
     public String afficherAccueil(@RequestParam(required = false) String categorie, @RequestParam(required = false) String search, Model model

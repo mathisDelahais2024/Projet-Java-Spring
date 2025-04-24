@@ -27,8 +27,8 @@ public class EnchereController {
     }
 
     @GetMapping("/getById")
-    public String getEnchereById(@RequestParam String id, Model model) {
-        ReponseService<Enchere> reponse = enchereService.getById(id);
+    public String getEnchereById(@RequestParam Long noEnchere, Model model) {
+        ReponseService<Enchere> reponse = enchereService.getById(noEnchere);
         if (reponse.getCode().equals(CD_ERR_NOT_FOUND)) {
             return "error-page.html";
         }
@@ -66,12 +66,7 @@ public class EnchereController {
     }
 
     @PostMapping("/proposer")
-    public String proposerEnchere(
-            @RequestParam String idArticle,
-            @RequestParam String email,
-            @RequestParam float montant,
-            Model model) {
-
+    public String proposerEnchere(@RequestParam Long idArticle, @RequestParam String email, @RequestParam float montant, Model model) {
         ReponseService<Enchere> reponse = enchereService.proposerEnchere(idArticle, email, montant);
 
         if (!CD_SUCCESS.equals(reponse.getCode())) {
@@ -97,6 +92,4 @@ public class EnchereController {
         model.addAttribute("message", "Retrait confirmé avec succès !");
         return "details-enchere";
     }
-
-
 }

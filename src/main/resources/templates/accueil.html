@@ -85,7 +85,7 @@
             <div class="p-6 flex flex-col justify-between w-full">
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-2" th:text="${enchere.article.nomArticle}">Nom de l'article</h3>
-                    <p class="text-gray-700 mb-1">Prix actuel : <span th:text="${enchere.montantEnchere}">0</span> points</p>
+                    <p class="text-gray-700 mb-1">Prix actuel : <span th:text="${enchere.article.getMiseAPrix()}">0</span> points</p>
                     <p class="text-gray-700 mb-1">Fin de l'enchère : <span th:text="${#dates.format(enchere.article.dateFinEncheres, 'dd/MM/yyyy')}"></span></p>
                     <p class="text-gray-700 mb-1">
                         Retrait :

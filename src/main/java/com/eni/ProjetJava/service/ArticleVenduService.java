@@ -2,7 +2,7 @@ package com.eni.ProjetJava.service;
 
 import com.eni.ProjetJava.bo.ArticleVendu;
 import com.eni.ProjetJava.bo.Retrait;
-import com.eni.ProjetJava.dao.IDAOArticleVendu;
+import com.eni.ProjetJava.repo.ArticleVenduRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import static com.eni.ProjetJava.service.ConstanteService.*;
 public class ArticleVenduService {
 
     @Autowired
-    IDAOArticleVendu daoArticleVendu;
+    private ArticleVenduRepository articleVenduRepository;
 
     public ReponseService<List<ArticleVendu>> getAll() {
-        List<ArticleVendu> articles = daoArticleVendu.selectAll();
+        List<ArticleVendu> articles = articleVenduRepository.findAll();
 
         if (articles.isEmpty()){
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Liste d'articles vide", articles);
@@ -26,8 +26,8 @@ public class ArticleVenduService {
         return ReponseService.construireReponse(CD_SUCCESS, "Liste des articles récupérée", articles);
     }
 
-    public ReponseService<ArticleVendu> getByNoArticle(String noArticle) {
-        ArticleVendu article = daoArticleVendu.selectById(noArticle);
+    public ReponseService<ArticleVendu> getByNoArticle(Long noArticle) {
+        ArticleVendu article = articleVenduRepository.findById(Long.valueOf(noArticle)).orElse(null);
 
         if (article == null){
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Article non existent", article);
@@ -67,7 +67,7 @@ public class ArticleVenduService {
         }
 
         try {
-            daoArticleVendu.insert(article);
+            articleVenduRepository.save(article); // Utilisation de save pour insérer ou mettre à jour
             return ReponseService.construireReponse(CD_CREATED, "L'article a été mis en vente avec succès.", article);
         } catch (Exception e) {
             return ReponseService.construireReponse(CD_ERR_INTERNAL, "Une erreur technique est survenue lors de l'enregistrement.", null);

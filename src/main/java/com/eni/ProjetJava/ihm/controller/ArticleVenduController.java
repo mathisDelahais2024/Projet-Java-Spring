@@ -26,7 +26,7 @@ public class ArticleVenduController {
     }
 
     @GetMapping("/getById")
-    public String getArticleVenduById(@RequestParam("noArticle") String noArticle, Model model) {
+    public String getArticleVenduById(@RequestParam("noArticle") Long noArticle, Model model) {
         ReponseService<ArticleVendu> reponseService = articleVenduService.getByNoArticle(noArticle);
         if (reponseService.getCode().equals(CD_ERR_NOT_FOUND)) {
             return "error-page.html";

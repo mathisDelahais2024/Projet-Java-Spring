@@ -6,137 +6,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body class="bg-gray-100 font-sans text-gray-900">
 
-<header class="bg-blue-600 text-white py-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <h2 class="text-2xl font-bold">ENI-Enchères</h2>
-        <div class="space-x-4">
+<header class="bg-blue-700 text-white py-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-4">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">ENI-Enchères</h2>
+
+        <!-- Bouton Burger -->
+        <button id="menu-toggle" class="sm:hidden focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <!-- Menu Desktop -->
+        <nav class="hidden sm:flex space-x-3 text-sm" id="menu-desktop">
             <div th:if="${utilisateur == null}">
-                <a th:href="@{/inscription}">S'inscrire</a>
+                <a th:href="@{/inscription}" class="hover:underline">S'inscrire</a>
                 <span>|</span>
-                <a th:href="@{/connexion}">Se connecter</a>
+                <a th:href="@{/connexion}" class="hover:underline">Se connecter</a>
             </div>
-
             <div th:if="${utilisateur != null}">
-                <a th:href="@{/profil}">Mon Profil</a>
+                <a th:href="@{/vendre}" class="hover:underline">Vendre un article</a>
                 <span>|</span>
-                <a th:href="@{/deconnexion}">Déconnexion</a>
+                <a th:href="@{/profil}" class="hover:underline">Mon Profil</a>
+                <span>|</span>
+                <a th:href="@{/deconnexion}" class="hover:underline">Déconnexion</a>
             </div>
+        </nav>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="menu-mobile" class="sm:hidden hidden px-4 mt-2 space-y-2 text-sm">
+        <div th:if="${utilisateur == null}">
+            <a th:href="@{/inscription}" class="block hover:underline">S'inscrire</a>
+            <a th:href="@{/connexion}" class="block hover:underline">Se connecter</a>
+        </div>
+        <div th:if="${utilisateur != null}">
+            <a th:href="@{/vendre}" class="block hover:underline">Vendre un article</a>
+            <a th:href="@{/profil}" class="block hover:underline">Mon Profil</a>
+            <a th:href="@{/deconnexion}" class="block hover:underline">Déconnexion</a>
         </div>
     </div>
 </header>
 
-<section class="container mx-auto mt-8 px-4 py-6 bg-white shadow-lg rounded-lg">
-    <h4 class="text-xl font-semibold mb-4">Filtres :</h4>
-    <form action="/" method="get" class="space-y-4">
-        <!-- Catégories -->
+
+<section class="container mx-auto mt-10 px-4 py-6 bg-white shadow-md rounded-2xl">
+    <h4 class="text-2xl font-semibold mb-6 border-b pb-2">Filtres</h4>
+    <form action="/" method="get" class="space-y-6">
+
+        <!-- Select catégorie -->
         <div>
-            <label for="categorie" class="block text-sm font-medium text-gray-700">Catégories</label>
-            <select name="categorie" id="categorie" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label for="categorie" class="block mb-1 text-sm font-medium text-gray-700">Catégories</label>
+            <select id="categorie" name="categorie"
+                    class="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500">
                 <option value="" th:selected="${categorie == null or #strings.isEmpty(categorie)}">Toutes</option>
 
-                <option th:each="cat : ${categories}" th:value="${cat.libelle}" th:text="${cat.libelle}" th:selected="${cat.libelle == categorie}">
-                </option>
+                <option th:each="cat : ${categories}" th:value="${cat.libelle}" th:text="${cat.libelle}" th:selected="${cat.libelle == categorie}"></option>
             </select>
         </div>
 
-        <!-- Nom de l'article -->
+        <!-- Search -->
         <div>
-            <label for="search" class="block text-sm font-medium text-gray-700">Nom de l'article</label>
-            <input type="text" name="search" id="search" placeholder="Le nom de l'article" th:value="${search}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label for="search" class="block mb-1 text-sm font-medium text-gray-700">Nom de l'article</label>
+            <input type="text" id="search" name="search" placeholder="Le nom de l'article"
+                   class="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                   th:value="${search}">
         </div>
-
-        <!-- Nouveaux filtres à cocher -->
-        <div class="flex flex-col sm:flex-row items-start gap-4">
-            <label class="inline-flex items-center">
-                <input type="checkbox" name="disponibles" class="form-checkbox h-5 w-5 text-blue-600" th:checked="${disponibles}">
-                <span class="ml-2 text-gray-700">Afficher les enchères disponibles</span>
+        <!-- Checkboxes -->
+        <div class="flex flex-col sm:flex-row gap-4">
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="disponibles" class="accent-blue-600" th:checked="${disponibles}">
+                <span class="text-sm text-gray-700">Afficher les enchères disponibles</span>
             </label>
-
-            <label class="inline-flex items-center">
-                <input type="checkbox" name="mesVentes" class="form-checkbox h-5 w-5 text-blue-600" th:checked="${mesVentes}">
-                <span class="ml-2 text-gray-700">Afficher mes ventes</span>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="mesVentes" class="accent-blue-600" th:checked="${mesVentes}">
+                <span class="text-sm text-gray-700">Afficher mes ventes</span>
             </label>
         </div>
 
         <!-- Boutons -->
-        <div class="flex flex-col sm:flex-row gap-2">
-            <button type="submit" class="w-full sm:w-auto bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+        <div class="flex flex-col sm:flex-row gap-3">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition">
                 Rechercher
             </button>
-            <a th:href="@{/}" class="w-full sm:w-auto text-center bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition">
+            <a th:href="@{/}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg text-center transition">
                 Annuler le filtre
             </a>
         </div>
     </form>
 </section>
 
-<section class="container mx-auto mt-8 px-4">
+<!-- Enchères en cours -->
+<section class="container mx-auto mt-12 px-4">
     <h2 class="text-2xl font-bold mb-6">Enchères en cours</h2>
 
     <!-- Affichage du nombre total d'enchères -->
     <div th:if="${encheresPubliques != null}">
-        <!-- Boucle sur chaque enchère -->
-        <div th:each="enchere : ${encheresPubliques}" class="flex flex-col sm:flex-row bg-white shadow-md rounded-lg mb-6 overflow-hidden">
-            <div class="p-6 flex flex-col justify-between w-full">
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2" th:text="${enchere.article.nomArticle}">Nom de l'article</h3>
-                    <p class="text-gray-700 mb-1">Prix actuel : <span th:text="${enchere.article.miseAPrix}">0</span> points</p>
-                    <p class="text-gray-700 mb-1">Fin de l'enchère : <span th:text="${#dates.format(enchere.article.dateFinEncheres, 'dd/MM/yyyy')}"></span></p>
-                    <p class="text-gray-700 mb-1">
-                        Retrait :
-                        <span th:text="${enchere.article.retrait.rue}"></span>,
-                        <span th:text="${enchere.article.retrait.codePostal}"></span>
-                        <span th:text="${enchere.article.retrait.ville}"></span>
-                    </p>
-                    <p class="text-gray-700 mb-1">
-                        Vendeur :
-                        <span th:text="${enchere.article.vendeur != null ? enchere.article.vendeur.pseudo : 'Inconnu'}"></span>
-                    </p>
-                </div>
-
-                <div class="mt-4">
-                    <a th:if="${utilisateur != null}"
-                       th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
-                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                        Détails
-                    </a>
-                </div>
+        <div th:each="enchere : ${encheresPubliques}"
+             class="bg-white rounded-2xl shadow-lg p-6 mb-6 space-y-2 transition hover:shadow-xl">
+            <h3 class="text-xl font-semibold text-gray-800" th:text="${enchere.article.nomArticle}">Nom</h3>
+            <p class="text-gray-700">Prix actuel : <span th:text="${enchere.montantEnchere}">0</span> points</p>
+            <p class="text-gray-700">Fin de l'enchère : <span th:text="${#dates.format(enchere.article.dateFinEncheres, 'dd/MM/yyyy')}"></span></p>
+            <p class="text-gray-700">
+                Retrait :
+                <span th:text="${enchere.article.retrait.rue}"></span>,
+                <span th:text="${enchere.article.retrait.codePostal}"></span>
+                <span th:text="${enchere.article.retrait.ville}"></span>
+            </p>
+            <p class="text-gray-700">
+                Vendeur :
+                <span th:text="${enchere.article.vendeur != null ? enchere.article.vendeur.pseudo : 'Inconnu'}"></span>
+            </p>
+            <div>
+                <a th:if="${utilisateur != null}"
+                   th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
+                   class="mt-3 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+                    Détails
+                </a>
             </div>
         </div>
     </div>
+    <div th:if="${encheresPubliques == null or #lists.isEmpty(encheresPubliques)}"
+         class="text-gray-500 italic">Aucune enchère disponible pour le moment.</div>
+</section>
+<!-- MES ENCHÈRES EN COURS -->
+<section class="container mx-auto mt-12 px-4">
+    <h2 class="text-2xl font-bold mb-6">Mes enchères en cours</h2>
 
+    <div th:each="enchere : ${encheresParticipees}"
+         class="bg-white p-6 rounded-2xl shadow-lg mb-6 hover:shadow-xl transition">
+        <p class="text-gray-800 text-lg font-medium">
+            <span th:text="${enchere.article.nomArticle}">Nom</span>
+            <span class="text-blue-600 font-semibold"> – </span>
+            <span th:text="${enchere.montantEnchere} + ' points'">0 points</span>
+        </p>
+    </div>
 
-    <div th:if="${encheresPubliques == null or #lists.isEmpty(encheresPubliques)}" class="text-gray-600">
-        Aucune enchère disponible pour le moment.
+    <div th:if="${#lists.isEmpty(encheresParticipees)}" class="text-gray-500 italic">
+        Aucune enchère en cours.
     </div>
 </section>
 
-<div th:if="${utilisateur != null}">
-    <section class="container mx-auto mt-8 px-4">
-        <h2 class="text-2xl font-bold mb-4">Mes enchères en cours</h2>
-        <div th:each="enchere : ${encheresParticipees}" class="bg-white p-4 rounded-lg shadow mb-4">
-            <p><strong th:text="${enchere.article.nomArticle}"></strong> – <span th:text="${enchere.montantEnchere} + ' points'"></span></p>
-        </div>
-        <div th:if="${#lists.isEmpty(encheresParticipees)}" class="text-gray-500">Aucune enchère en cours.</div>
-    </section>
+<!-- MES ENCHÈRES GAGNÉES -->
+<section class="container mx-auto mt-12 px-4">
+    <h2 class="text-2xl font-bold mb-6">Mes enchères gagnées</h2>
 
-    <section class="container mx-auto mt-8 px-4">
-        <h2 class="text-2xl font-bold mb-4">Mes enchères gagnées</h2>
-        <div th:each="enchere : ${encheresGagnees}" class="bg-white p-4 rounded-lg shadow mb-4 flex justify-between items-center">
-            <div>
-                <p><strong th:text="${enchere.article.nomArticle}"></strong> – Gagnée à <span th:text="${enchere.montantEnchere} + ' points'"></span></p>
-            </div>
-            <a th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
-               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                Détails
-            </a>
-        </div>
+    <div th:each="enchere : ${encheresGagnees}"
+         class="bg-white p-6 rounded-2xl shadow-lg mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:shadow-xl transition">
 
-        <div th:if="${#lists.isEmpty(encheresGagnees)}" class="text-gray-500">Aucune enchère gagnée.</div>
-    </section>
+        <div class="text-gray-800 text-lg font-medium">
+            <span th:text="${enchere.article.nomArticle}">Nom</span>
+            <span class="text-green-600 font-semibold"> – Gagnée à </span>
+            <span th:text="${enchere.montantEnchere} + ' points'">0 points</span>
+        </div>
+        <a th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
+           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition text-sm">
+            Détails
+        </a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(encheresGagnees)}" class="text-gray-500 italic">
+        Aucune enchère gagnée.
+    </div>
+</section>
+
+
 </div>
+
+<script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('menu-mobile');
+
+    toggleBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
 
 </body>
 </html>

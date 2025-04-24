@@ -6,51 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans text-gray-900">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4 font-sans">
 
-<section class="flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Se connecter</h2>
+<div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
 
-        <div id="error-message" class="mb-4 hidden bg-red-100 text-red-700 p-3 rounded-lg text-sm"></div>
+    <!-- En-tête -->
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">ENI-Enchères</h1>
+    <h2 class="text-xl font-semibold text-center text-gray-800 mb-6">Connexion</h2>
 
-        <script>
-            const params = new URLSearchParams(window.location.search);
-            if (params.get("error")) {
-                const errorDiv = document.getElementById("error-message");
-                errorDiv.textContent = "Email ou mot de passe invalide.";
-                errorDiv.classList.remove("hidden");
-            }
-        </script>
+    <!-- Message d'erreur -->
+    <div id="error-message" class="hidden bg-red-100 text-red-700 p-3 rounded-lg text-sm mb-4"></div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("error")) {
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.textContent = "Email ou mot de passe invalide.";
+            errorDiv.classList.remove("hidden");
+        }
+    </script>
 
-        <form action="/connexion" method="POST">
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Entrez votre email" required
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
+    <!-- Formulaire de connexion -->
+    <form action="/connexion" method="POST" class="space-y-4 text-sm text-gray-700">
 
-            <div class="mb-6">
-                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
+        <div>
+            <label for="email" class="block font-medium mb-1">E-mail :</label>
+            <input type="email" id="email" name="email" required placeholder="exemple@mail.com"
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
+        </div>
 
-            <div class="flex items-center mb-6">
-                <input type="checkbox" id="remember" name="remember" class="mr-2 w-4 h-4 text-blue-600">
-                <label for="remember" class="text-sm text-gray-700">Se souvenir de moi</label>
-            </div>
+        <div>
+            <label for="password" class="block font-medium mb-1">Mot de passe :</label>
+            <input type="password" id="password" name="password" required placeholder="Votre mot de passe"
+                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" />
+        </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition mb-4">Se connecter</button>
+        <div class="flex items-center">
+            <input type="checkbox" id="remember" name="remember"
+                   class="w-4 h-4 text-blue-600 border-gray-300 rounded mr-2">
+            <label for="remember">Se souvenir de moi</label>
+        </div>
 
-            <div class="flex justify-between items-center mb-6">
-                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">Mot de passe oublié ?</a>
+        <!-- Bouton -->
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            Se connecter
+        </button>
 
-                <a href="#" th:href="@{/inscription}" class="text-sm text-blue-600 hover:text-blue-800">Créer un compte</a>
-            </div>
-        </form>
-    </div>
-</section>
+        <!-- Liens -->
+        <div class="flex justify-between items-center pt-2">
+            <a href="#" class="text-blue-600 hover:underline text-sm">Mot de passe oublié ?</a>
+            <a href="/inscription" class="text-blue-600 hover:underline text-sm">Créer un compte</a>
+        </div>
+
+    </form>
+</div>
 
 </body>
 </html>

@@ -6,68 +6,77 @@
   <title>Mon Profil - ENI-Enchères</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-black font-sans">
-<div class="max-w-2xl mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-4">ENI-Enchères</h1>
+<body class="bg-gray-50 text-gray-900 font-sans">
+<div class="max-w-3xl mx-auto mt-12 px-6 py-8 bg-white shadow-lg rounded-2xl">
+  <h1 class="text-3xl font-bold text-blue-600 mb-2">ENI-Enchères</h1>
   <h2 class="text-xl font-semibold mb-6">Mon Profil</h2>
 
-  <form class="space-y-4">
+  <form class="space-y-5">
+    <!-- Input group -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="pseudo">Pseudo :</label>
-      <input id="pseudo" type="text" th:value="${session.utilisateur.pseudo}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="pseudo" class="text-sm font-medium">Pseudo :</label>
+      <input id="pseudo" type="text" th:value="${session.utilisateur.pseudo}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="nom">Nom :</label>
-      <input id="nom" type="text" th:value="${session.utilisateur.nom}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="nom" class="text-sm font-medium">Nom :</label>
+      <input id="nom" type="text" th:value="${session.utilisateur.nom}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="prenom">Prénom :</label>
-      <input id="prenom" type="text" th:value="${session.utilisateur.prenom}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="prenom" class="text-sm font-medium">Prénom :</label>
+      <input id="prenom" type="text" th:value="${session.utilisateur.prenom}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="email">Email :</label>
-      <input id="email" type="email" th:value="${session.utilisateur.email}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="email" class="text-sm font-medium">Email :</label>
+      <input id="email" type="email" th:value="${session.utilisateur.email}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="telephone">Téléphone :</label>
-      <input id="telephone" type="tel" th:value="${session.utilisateur.telephone}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="telephone" class="text-sm font-medium">Téléphone :</label>
+      <input id="telephone" type="tel" th:value="${session.utilisateur.telephone}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="rue">Rue :</label>
-      <input id="rue" type="text" th:value="${session.utilisateur.rue}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="rue" class="text-sm font-medium">Rue :</label>
+      <input id="rue" type="text" th:value="${session.utilisateur.rue}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="codepostal">Code postal :</label>
-      <input id="codepostal" type="text" th:value="${session.utilisateur.codePostal}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="codepostal" class="text-sm font-medium">Code postal :</label>
+      <input id="codepostal" type="text" th:value="${session.utilisateur.codePostal}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="ville">Ville :</label>
-      <input id="ville" type="text" th:value="${session.utilisateur.ville}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="ville" class="text-sm font-medium">Ville :</label>
+      <input id="ville" type="text" th:value="${session.utilisateur.ville}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="motdepasse">Mot de passe :</label>
-      <input id="motdepasse" type="password" th:value="${session.utilisateur.motDePasse}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="motdepasse" class="text-sm font-medium">Mot de passe :</label>
+      <input id="motdepasse" type="password" th:value="${session.utilisateur.motDePasse}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-      <label for="credit">Crédit :</label>
-      <input id="credit" type="password" th:value="${session.utilisateur.credit}" class="col-span-2 border border-black p-2 w-full rounded" />
+      <label for="credit" class="text-sm font-medium">Crédit :</label>
+      <input id="credit" type="text" th:value="${session.utilisateur.credit}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
-    <div class="flex justify-between mt-6">
-      <button type="submit" onclick="window.location.href='/'" class="px-4 py-2 border border-black rounded hover:bg-gray-100">Enregistrer</button>
-      <button type="button" onclick="window.location.href='/'" class="px-4 py-2 border border-black rounded text-red-600 hover:bg-red-50">Supprimer mon compte</button>
-      <button type="button" onclick="window.location.href='/'" class="px-4 py-2 border border-black rounded hover:bg-gray-100">Retour</button>
+    <!-- Boutons -->
+    <div class="flex flex-col sm:flex-row justify-end gap-4 pt-6">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition">
+        Enregistrer
+      </button>
+      <button type="button" onclick="window.location.href='/'" class="text-red-600 border border-red-600 hover:bg-red-100 px-5 py-2 rounded-lg transition">
+        Supprimer mon compte
+      </button>
+      <button type="button" onclick="window.location.href='/'" class="border border-gray-400 hover:bg-gray-100 px-5 py-2 rounded-lg transition">
+        Retour
+      </button>
     </div>
   </form>
 </div>
 </body>
+
 </html>

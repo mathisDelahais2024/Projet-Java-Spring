@@ -1,8 +1,21 @@
 package com.eni.ProjetJava.bo;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Retrait {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long noRetrait;
+
+    @Column(nullable = false)
     private String rue;
+
+    @Column(nullable = false)
     private String codePostal;
+
+    @Column(nullable = false)
     private String ville;
 
     public Retrait() {}
@@ -21,6 +34,14 @@ public class Retrait {
         this.rue = rue;
     }
 
+    public Long getNoRetrait() {
+        return noRetrait;
+    }
+
+    public void setNoRetrait(Long noRetrait) {
+        this.noRetrait = noRetrait;
+    }
+
     public String getCodePostal() {
         return codePostal;
     }
@@ -36,4 +57,5 @@ public class Retrait {
     public void setVille(String ville) {
         this.ville = ville;
     }
+
 }

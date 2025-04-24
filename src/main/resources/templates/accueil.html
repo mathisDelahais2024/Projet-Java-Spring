@@ -63,6 +63,7 @@
             <select id="categorie" name="categorie"
                     class="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500">
                 <option value="" th:selected="${categorie == null or #strings.isEmpty(categorie)}">Toutes</option>
+
                 <option th:each="cat : ${categories}" th:value="${cat.libelle}" th:text="${cat.libelle}" th:selected="${cat.libelle == categorie}"></option>
             </select>
         </div>
@@ -74,7 +75,6 @@
                    class="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                    th:value="${search}">
         </div>
-
         <!-- Checkboxes -->
         <div class="flex flex-col sm:flex-row gap-4">
             <label class="flex items-center space-x-2">
@@ -103,6 +103,7 @@
 <section class="container mx-auto mt-12 px-4">
     <h2 class="text-2xl font-bold mb-6">Enchères en cours</h2>
 
+    <!-- Affichage du nombre total d'enchères -->
     <div th:if="${encheresPubliques != null}">
         <div th:each="enchere : ${encheresPubliques}"
              class="bg-white rounded-2xl shadow-lg p-6 mb-6 space-y-2 transition hover:shadow-xl">
@@ -128,7 +129,6 @@
             </div>
         </div>
     </div>
-
     <div th:if="${encheresPubliques == null or #lists.isEmpty(encheresPubliques)}"
          class="text-gray-500 italic">Aucune enchère disponible pour le moment.</div>
 </section>
@@ -162,7 +162,6 @@
             <span class="text-green-600 font-semibold"> – Gagnée à </span>
             <span th:text="${enchere.montantEnchere} + ' points'">0 points</span>
         </div>
-
         <a th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition text-sm">
             Détails

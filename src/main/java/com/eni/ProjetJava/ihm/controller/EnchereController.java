@@ -44,11 +44,12 @@ public class EnchereController {
         return "encheres-publiques.html";
     }
 
-    @GetMapping("/encheres/participations")
-    public String getEncheresParUtilisateur(@RequestParam("utilisateurId") String utilisateurId, Model model) {
-        ReponseService<List<Enchere>> response = enchereService.getEncheresParUtilisateur(utilisateurId);
-        model.addAttribute("encheres", response.getData());
-        return "encheres-participations";
+    @GetMapping("/encheres")
+    public String afficherEncheres(Model model, @RequestParam(required = false) String libelle,
+                                   @RequestParam(required = false) String nomArticle) {
+        ReponseService<List<Enchere>> response = enchereService.getEncheresPubliques(libelle, nomArticle);
+        model.addAttribute("encheresPubliques", response.getData());
+        return "encheres";
     }
 
     @GetMapping("/encheres/gagnees")
@@ -77,19 +78,5 @@ public class EnchereController {
         model.addAttribute("enchere", reponse.getData());
         model.addAttribute("message", "Le nouveau prix est " + montant + " points.");
         return "details-enchere"; // <-- important si tu veux rester sur la même page
-    }
-
-    @PostMapping("/retrait")
-    public String confirmerRetrait(@RequestParam String id, Model model) {
-        ReponseService<Enchere> reponse = enchereService.confirmerRetrait(id);
-
-        if (!CD_SUCCESS.equals(reponse.getCode())) {
-            model.addAttribute("error", reponse.getMessage());
-            return "error-page";
-        }
-
-        model.addAttribute("enchere", reponse.getData());
-        model.addAttribute("message", "Retrait confirmé avec succès !");
-        return "details-enchere";
     }
 }

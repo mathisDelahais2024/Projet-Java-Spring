@@ -4,7 +4,6 @@ import com.eni.ProjetJava.bo.Enchere;
 import com.eni.ProjetJava.bo.Utilisateur;
 import com.eni.ProjetJava.repo.EnchereRepository;
 import com.eni.ProjetJava.repo.UtilisateurRepository;
-import com.mysql.cj.x.protobuf.Mysqlx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +38,8 @@ public class EnchereService {
     public ReponseService<List<Enchere>> getEncheresPubliques(String libelle, String nomArticle) {
         List<Enchere> encheres = enchereRepository.findAll();
 
+        System.out.println("Nombre d'enchères récupérées: " + encheres.size());
+
         List<Enchere> encheresFiltrees = encheres.stream().filter(e -> {
             boolean filtreNom = (nomArticle == null || nomArticle.isEmpty())
                     || e.getArticle().getNomArticle().toLowerCase().contains(nomArticle.toLowerCase());
@@ -52,6 +53,7 @@ public class EnchereService {
 
         return ReponseService.construireReponse(CD_SUCCESS, "Enchères filtrées récupérées", encheresFiltrees);
     }
+
 
     public ReponseService<List<Enchere>> getEncheresParUtilisateur(String email) {
         Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
@@ -163,17 +165,4 @@ public class EnchereService {
     public List<Enchere> rechercherEncheres(String libelle, String nomArticle) {
         return getEncheresPubliques(libelle, nomArticle).getData();
     }
-
-    public ReponseService<Enchere> confirmerRetrait(String idArticle) {
-        Enchere enchere = daoEnchere.selectById(idArticle);
-        if (enchere == null) {
-            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
-        }
-
-        enchere.setRetraitEffectue(true);
-        daoEnchere.update(enchere);
-
-        return ReponseService.construireReponse(CD_SUCCESS, "Retrait confirmé", enchere);
-    }
-
 }

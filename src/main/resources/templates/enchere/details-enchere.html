@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Détail vente - ENI-Enchères</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 py-10 px-4 font-sans">
-<div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+<div class="w-full max-w-full sm:max-w-2xl mx-auto bg-white px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-xl">
 
   <!-- Titre principal -->
   <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">ENI-Enchères</h1>
@@ -49,14 +50,16 @@
 
   <!-- Formulaire d'enchère -->
   <div th:if="${utilisateur == null or enchere.gagnant == null or utilisateur.email != enchere.gagnant.email}" class="mt-6">
-    <form th:action="@{/enchere/proposer}" method="post" class="flex items-center justify-between">
+    <form th:action="@{/enchere/proposer}" method="post" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
       <input type="hidden" name="id" th:value="${enchere.article.noArticle}" />
       <input type="number" name="montant" required placeholder="Votre offre"
-             class="w-32 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <button type="submit"
-              class="ml-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-        Enchérir
-      </button>
+             class="w-full sm:w-32 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <div class="text-center mt-8">
+        <button type="submit"
+                class="mt-4 sm:mt-0 sm:ml-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+          Enchérir
+        </button>
+      </div>
     </form>
   </div>
 
@@ -73,5 +76,4 @@
   </div>
 </div>
 </body>
-
 </html>

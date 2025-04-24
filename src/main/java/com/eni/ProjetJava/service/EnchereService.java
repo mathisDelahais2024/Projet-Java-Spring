@@ -141,4 +141,17 @@ public class EnchereService {
     public List<Enchere> rechercherEncheres(String libelle, String nomArticle) {
         return getEncheresPubliques(libelle, nomArticle).getData();
     }
+
+    public ReponseService<Enchere> confirmerRetrait(String idArticle) {
+        Enchere enchere = daoEnchere.selectById(idArticle);
+        if (enchere == null) {
+            return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Enchère non trouvée", null);
+        }
+
+        enchere.setRetraitEffectue(true);
+        daoEnchere.update(enchere);
+
+        return ReponseService.construireReponse(CD_SUCCESS, "Retrait confirmé", enchere);
+    }
+
 }

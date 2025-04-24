@@ -29,6 +29,7 @@
 <section class="container mx-auto mt-8 px-4 py-6 bg-white shadow-lg rounded-lg">
     <h4 class="text-xl font-semibold mb-4">Filtres :</h4>
     <form action="/" method="get" class="space-y-4">
+        <!-- Catégories -->
         <div>
             <label for="categorie" class="block text-sm font-medium text-gray-700">Catégories</label>
             <select name="categorie" id="categorie" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -37,11 +38,28 @@
             </select>
         </div>
 
+        <!-- Nom de l'article -->
         <div>
             <label for="search" class="block text-sm font-medium text-gray-700">Nom de l'article</label>
             <input type="text" name="search" id="search" placeholder="Le nom de l'article" th:value="${search}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
+        <!-- Nouveaux filtres à cocher -->
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="disponibles" class="form-checkbox h-5 w-5 text-blue-600"
+                       th:checked="${disponibles}">
+                <span class="ml-2 text-gray-700">Afficher les enchères disponibles</span>
+            </label>
+
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="mesVentes" class="form-checkbox h-5 w-5 text-blue-600"
+                       th:checked="${mesVentes}">
+                <span class="ml-2 text-gray-700">Afficher mes ventes</span>
+            </label>
+        </div>
+
+        <!-- Boutons -->
         <div class="flex flex-col sm:flex-row gap-2">
             <button type="submit" class="w-full sm:w-auto bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
                 Rechercher
@@ -51,6 +69,7 @@
             </a>
         </div>
     </form>
+
 </section>
 
 <section class="container mx-auto mt-8 px-4">
@@ -70,12 +89,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <a th:if="${utilisateur == null}" th:href="@{/connexion}"
-                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                        Détails
-                    </a>
-
-                    <a th:if="${utilisateur != null}" th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
+                    <a th:if="${utilisateur != null}"
+                       th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
                        class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                         Détails
                     </a>
@@ -102,9 +117,16 @@
 
     <section class="container mx-auto mt-8 px-4">
         <h2 class="text-2xl font-bold mb-4">Mes enchères gagnées</h2>
-        <div th:each="enchere : ${encheresGagnees}" class="bg-white p-4 rounded-lg shadow mb-4">
-            <p><strong th:text="${enchere.article.nomArticle}"></strong> – Gagnée à <span th:text="${enchere.montantEnchere} + ' points'"></span></p>
+        <div th:each="enchere : ${encheresGagnees}" class="bg-white p-4 rounded-lg shadow mb-4 flex justify-between items-center">
+            <div>
+                <p><strong th:text="${enchere.article.nomArticle}"></strong> – Gagnée à <span th:text="${enchere.montantEnchere} + ' points'"></span></p>
+            </div>
+            <a th:href="@{'/enchere/getById'(id=${enchere.article.noArticle})}"
+               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                Détails
+            </a>
         </div>
+
         <div th:if="${#lists.isEmpty(encheresGagnees)}" class="text-gray-500">Aucune enchère gagnée.</div>
     </section>
 

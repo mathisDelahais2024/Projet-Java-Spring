@@ -1,6 +1,8 @@
 package com.eni.ProjetJava.ihm.controller;
 
+import com.eni.ProjetJava.bo.Categorie;
 import com.eni.ProjetJava.bo.Enchere;
+import com.eni.ProjetJava.service.CategorieService;
 import com.eni.ProjetJava.service.EnchereService;
 import com.eni.ProjetJava.service.ReponseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class EnchereController {
 
     @Autowired
     private EnchereService enchereService;
+
+    @Autowired
+    private CategorieService categorieService;
 
     @GetMapping("/getAll")
     public String getAllEncheres(Model model) {
@@ -49,6 +54,7 @@ public class EnchereController {
                                    @RequestParam(required = false) String nomArticle) {
         ReponseService<List<Enchere>> response = enchereService.getEncheresPubliques(libelle, nomArticle);
         model.addAttribute("encheresPubliques", response.getData());
+        model.addAttribute("categorie", libelle);
         return "encheres";
     }
 
@@ -80,5 +86,10 @@ public class EnchereController {
         return "details-enchere"; // <-- important si tu veux rester sur la même page
     }
 
+    @GetMapping("/enchere/getById")
+    public String afficherDetail(@RequestParam("noEnchere") int noEnchere, Model model) {
+        // récupération de l'enchère par ID et envoi au modèle
+        return "detail-enchere";
+    }
 
 }

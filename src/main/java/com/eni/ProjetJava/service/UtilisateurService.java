@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eni.ProjetJava.service.ConstanteService.CD_ERR_NOT_FOUND;
-import static com.eni.ProjetJava.service.ConstanteService.CD_ERR_BAD_REQUEST;
-import static com.eni.ProjetJava.service.ConstanteService.CD_ERR_CONFLICT;
-import static com.eni.ProjetJava.service.ConstanteService.CD_SUCCESS;
+import static com.eni.ProjetJava.service.ConstanteService.*;
 
 @Service
 public class UtilisateurService {
@@ -72,6 +69,22 @@ public class UtilisateurService {
         }
     }
 
+    // Méthode pour mettre à jour un utilisateur
+    public Utilisateur updateUtilisateur(Utilisateur utilisateur) {
+        Utilisateur utilisateurExist = utilisateurRepository.findByEmail(utilisateur.getEmail());
+        if (utilisateurExist != null) {
+            // Mise à jour des informations
+            utilisateurExist.setPseudo(utilisateur.getPseudo());
+            utilisateurExist.setNom(utilisateur.getNom());
+            utilisateurExist.setPrenom(utilisateur.getPrenom());
+            utilisateurExist.setTelephone(utilisateur.getTelephone());
+            utilisateurExist.setRue(utilisateur.getRue());
+            utilisateurExist.setCodePostal(utilisateur.getCodePostal());
+            utilisateurExist.setVille(utilisateur.getVille());
+            return utilisateurRepository.save(utilisateurExist);
+        }
+        return null; // Utilisateur non trouvé
+    }
 
 
     public String supprimerUtilisateurParEmail(String email) {

@@ -30,12 +30,12 @@ public class EniAuthenticationProvider implements AuthenticationProvider {
 
         Utilisateur utilisateur = utilisateurService.findByEmail(email);
         if (utilisateur == null) {
-            System.out.println("Utilisateur non trouvé : " + email); // Ajoutez un log ici
+            System.out.println("Utilisateur non trouvé : " + email);
             throw new UsernameNotFoundException("Email non trouvé");
         }
 
         if (!passwordEncoder.matches(motDePasse, utilisateur.getMotDePasse())) {
-            System.out.println("Mot de passe incorrect pour l'utilisateur : " + email); // Log pour mot de passe incorrect
+            System.out.println("Mot de passe incorrect pour l'utilisateur : " + email);
             throw new UsernameNotFoundException("Mot de passe incorrect");
         }
 

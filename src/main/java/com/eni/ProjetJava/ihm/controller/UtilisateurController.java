@@ -25,11 +25,10 @@ public class UtilisateurController {
         return "profil";
     }
 
-    // Modifier l'utilisateur
     @PostMapping("/modifier-utilisateur")
     public String modifierUtilisateur(@ModelAttribute("utilisateur") Utilisateur utilisateur, HttpSession session) {
         utilisateurService.updateUtilisateur(utilisateur);
-        session.setAttribute("utilisateur", utilisateur); // Mettre à jour l'utilisateur dans la session
-        return "redirect:/profil"; // Rediriger vers la page de profil après modification
+        session.setAttribute("utilisateur", utilisateur);
+        return "redirect:/profil";
     }
 }

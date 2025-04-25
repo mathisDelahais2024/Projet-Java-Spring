@@ -11,7 +11,6 @@ public class ReponseService<T> {
         response.message = message;
         response.data = data;
 
-        // Log
         System.out.println(String.format("Code : %s | Message : %s", code, message));
 
         return response;

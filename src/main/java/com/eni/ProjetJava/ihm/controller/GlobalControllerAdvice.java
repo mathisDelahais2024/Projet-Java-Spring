@@ -19,7 +19,7 @@ public class GlobalControllerAdvice {
         if (auth != null && auth.getPrincipal() instanceof EniUserDetails eniUserDetails) {
             Utilisateur utilisateur = eniUserDetails.getUtilisateur();
             model.addAttribute("utilisateur", utilisateur);
-            session.setAttribute("utilisateur", utilisateur); // pour ton `th:if`
+            session.setAttribute("utilisateur", utilisateur);
         }
     }
 }

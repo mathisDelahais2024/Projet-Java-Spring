@@ -79,16 +79,14 @@ public class AuthController {
             @RequestParam String confirmation,
             Model model
     ) {
-        // Appel du service d'inscription
         String erreur = utilisateurService.inscrireUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, confirmation);
 
-        // Vérifier si une erreur a eu lieu pendant l'inscription
         if (erreur != null) {
             model.addAttribute("erreur", erreur);
-            return "auth/inscription"; // Rediriger vers la page d'inscription en cas d'erreur
+            return "auth/inscription";
         }
 
-        return "redirect:/connexion"; // Rediriger vers la page de connexion après l'inscription
+        return "redirect:/connexion";
     }
 
     @GetMapping("/profil")

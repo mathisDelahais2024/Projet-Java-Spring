@@ -13,9 +13,7 @@
   </a>
   <h2 class="text-xl font-semibold mb-6">Mon Profil</h2>
 
-  <!-- Formulaire de mise à jour de profil -->
   <form method="POST" action="/modifier-utilisateur" class="space-y-5">
-    <!-- Champs de formulaire pour la mise à jour de profil avec Thymeleaf -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
       <label for="pseudo" class="text-sm font-medium">Pseudo :</label>
       <input id="pseudo" type="text" name="pseudo" th:value="${session.utilisateur.pseudo}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -66,20 +64,17 @@
       <input id="credit" type="text" name="credit" th:value="${session.utilisateur.credit}" class="col-span-2 border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
 
-    <!-- Boutons de soumission -->
     <div class="flex flex-col sm:flex-row justify-end gap-4 pt-6">
       <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition">
         Enregistrer
       </button>
 
-      <!-- Formulaire de suppression du compte -->
       <form method="POST" action="/supprimer-compte" class="flex flex-col sm:flex-row gap-4">
         <button type="submit" class="text-red-600 border border-red-600 hover:bg-red-100 px-5 py-2 rounded-lg transition">
           Supprimer mon compte
         </button>
       </form>
 
-      <!-- Retour vers la page d'accueil -->
       <button type="button" onclick="window.location.href='/'" class="border border-gray-400 hover:bg-gray-100 px-5 py-2 rounded-lg transition">
         Retour
       </button>

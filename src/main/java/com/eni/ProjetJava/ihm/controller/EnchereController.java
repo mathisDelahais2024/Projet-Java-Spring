@@ -83,12 +83,11 @@ public class EnchereController {
 
         model.addAttribute("enchere", reponse.getData());
         model.addAttribute("message", "Le nouveau prix est " + montant + " points.");
-        return "details-enchere"; // <-- important si tu veux rester sur la même page
+        return "details-enchere";
     }
 
     @GetMapping("/enchere/getById")
     public String afficherDetail(@RequestParam("noEnchere") int noEnchere, Model model) {
-        // récupération de l'enchère par ID et envoi au modèle
         return "detail-enchere";
     }
 

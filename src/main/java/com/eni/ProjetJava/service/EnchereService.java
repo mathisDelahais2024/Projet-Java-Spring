@@ -110,55 +110,46 @@ public class EnchereService {
     }
 
     public ReponseService<Enchere> proposerEnchere(Long noArticle, String email, float montant) {
-        // Récupérer l'enchère actuelle en utilisant le repository
         Enchere enchereActuelle = enchereRepository.findById(noArticle).orElse(null);
         if (enchereActuelle == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Article non trouvé", null);
         }
 
-        // Vérifier que l'enchère n'est pas terminée
         LocalDate aujourdHui = LocalDate.now();
         if (enchereActuelle.getArticle().getDateFinEncheres() != null &&
                 !aujourdHui.isBefore(enchereActuelle.getArticle().getDateFinEncheres())) {
             return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "L'enchère est terminée", null);
         }
 
-        // Récupérer l'utilisateur (encherisseur) par email
         Utilisateur encherisseur = utilisateurRepository.findByEmail(email);
         if (encherisseur == null) {
             return ReponseService.construireReponse(CD_ERR_NOT_FOUND, "Utilisateur non trouvé", null);
         }
 
-        // Vérifier que le montant proposé est supérieur à l'enchère actuelle
         if (montant <= enchereActuelle.getMontantEnchere()) {
             return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "Le montant doit être supérieur à l'enchère actuelle", null);
         }
 
-        // Vérifier que l'encherisseur a suffisamment de crédit
         if (encherisseur.getCredit() < montant) {
             return ReponseService.construireReponse(CD_ERR_BAD_REQUEST, "Crédit insuffisant", null);
         }
 
-        // Si un ancien gagnant existe, lui redonner son crédit
         Utilisateur ancien = enchereActuelle.getGagnant();
         if (ancien != null && !ancien.getEmail().equals(encherisseur.getEmail())) {
             ancien.setCredit(ancien.getCredit() + enchereActuelle.getMontantEnchere());
-            utilisateurRepository.save(ancien); // Mise à jour de l'ancien gagnant
+            utilisateurRepository.save(ancien);
         }
 
-        // Déduire le montant du crédit de l'encherisseur
         encherisseur.setCredit(encherisseur.getCredit() - montant);
-        utilisateurRepository.save(encherisseur); // Mise à jour de l'encherisseur
+        utilisateurRepository.save(encherisseur);
 
-        // Mettre à jour l'enchère avec le nouveau montant et l'encherisseur
         enchereActuelle.setMontantEnchere(montant);
         enchereActuelle.setDateEnchere(LocalDate.now());
         enchereActuelle.setEncherisseur(encherisseur);
         enchereActuelle.setGagnant(encherisseur);
 
-        enchereRepository.save(enchereActuelle); // Mise à jour de l'enchère
+        enchereRepository.save(enchereActuelle);
 
-        // Retourner la réponse avec l'enchère mise à jour
         return ReponseService.construireReponse(CD_SUCCESS, "Enchère proposée avec succès", enchereActuelle);
     }
 

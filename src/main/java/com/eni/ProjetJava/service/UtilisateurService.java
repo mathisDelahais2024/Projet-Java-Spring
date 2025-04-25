@@ -39,17 +39,14 @@ public class UtilisateurService {
 
     public String inscrireUtilisateur(String pseudo, String nom, String prenom, String email, Long telephone, String rue, String codePostal, String ville, String motDePasse, String confirmMotDePasse) {
         try {
-            // Vérification des mots de passe
             if (!motDePasse.equals(confirmMotDePasse)) {
                 return "Mots de passe non identiques";
             }
 
-            // Vérification si l'email existe déjà
             if (utilisateurRepository.findByEmail(email) != null) {
                 return "Email déjà utilisé";
             }
 
-            // Création de l'utilisateur
             Utilisateur utilisateur = new Utilisateur();
             utilisateur.setPseudo(pseudo);
             utilisateur.setNom(nom);
@@ -69,11 +66,9 @@ public class UtilisateurService {
         }
     }
 
-    // Méthode pour mettre à jour un utilisateur
     public Utilisateur updateUtilisateur(Utilisateur utilisateur) {
         Utilisateur utilisateurExist = utilisateurRepository.findByEmail(utilisateur.getEmail());
         if (utilisateurExist != null) {
-            // Mise à jour des informations
             utilisateurExist.setPseudo(utilisateur.getPseudo());
             utilisateurExist.setNom(utilisateur.getNom());
             utilisateurExist.setPrenom(utilisateur.getPrenom());
@@ -83,7 +78,7 @@ public class UtilisateurService {
             utilisateurExist.setVille(utilisateur.getVille());
             return utilisateurRepository.save(utilisateurExist);
         }
-        return null; // Utilisateur non trouvé
+        return null;
     }
 
 

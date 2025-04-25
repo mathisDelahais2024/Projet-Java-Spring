@@ -9,17 +9,14 @@
 <body class="bg-gray-100 py-10 px-4 font-sans">
 <div class="w-full max-w-full sm:max-w-2xl mx-auto bg-white px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-xl">
 
-  <!-- Titre principal -->
   <a th:href="@{/}">
     <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">ENI-Enchères</h1>
   </a>
 
-  <!-- Message si l'utilisateur est le gagnant -->
   <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="bg-green-100 text-green-700 text-center font-medium py-3 rounded mb-4">
     🎉 Vous avez remporté l'enchère !
   </div>
 
-  <!-- Détails de l'article -->
   <h2 class="text-2xl font-semibold text-center mb-4">Détail de la vente</h2>
   <h3 class="text-xl font-medium text-center text-gray-800 mb-4" th:text="${enchere.article.nomArticle}">Nom de l'article</h3>
 
@@ -34,7 +31,6 @@
     <p><strong>Mise à prix :</strong> <span th:text="${enchere.article.miseAPrix}"></span> pts</p>
   </div>
 
-  <!-- Retrait si gagnant -->
   <div th:if="${utilisateur != null and enchere.gagnant != null and utilisateur.email == enchere.gagnant.email}" class="mt-6 bg-gray-50 border border-gray-200 rounded-xl p-5 shadow-inner">
     <h4 class="text-lg font-semibold mb-3">📦 Retrait</h4>
     <p th:text="${enchere.article.rue}"></p>
@@ -50,7 +46,6 @@
     </form>
   </div>
 
-  <!-- Formulaire d'enchère -->
   <div th:if="${utilisateur == null or enchere.gagnant == null or utilisateur.email != enchere.gagnant.email}" class="mt-6">
     <form th:action="@{/enchere/proposer}" method="post" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
       <input type="hidden" name="id" th:value="${enchere.article.noArticle}" />
@@ -65,12 +60,10 @@
     </form>
   </div>
 
-  <!-- Message de confirmation -->
   <div th:if="${message}" class="mt-4 text-green-700 font-medium text-center">
     <p th:text="${message}"></p>
   </div>
 
-  <!-- Bouton retour -->
   <div class="text-center mt-8">
     <a href="/" class="inline-block bg-gray-300 text-gray-800 px-5 py-2 rounded-lg hover:bg-gray-400 transition">
       Retour

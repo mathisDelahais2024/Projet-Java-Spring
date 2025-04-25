@@ -12,7 +12,6 @@
     <div class="container mx-auto flex justify-between items-center px-4">
         <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">ENI-Enchères</h2>
 
-        <!-- Menu Desktop -->
         <nav class="hidden sm:flex space-x-3 text-sm" id="menu-desktop">
             <div th:if="${utilisateur == null}">
                 <a th:href="@{/inscription-form}" class="hover:underline">S'inscrire</a>
@@ -29,7 +28,6 @@
         </nav>
     </div>
 
-    <!-- Menu Mobile visible dès le départ -->
     <div id="menu-mobile" class="sm:hidden px-4 mt-2 space-y-2 text-sm">
         <div th:if="${utilisateur == null}">
             <a th:href="@{/inscription}" class="block hover:underline">S'inscrire</a>
@@ -48,7 +46,6 @@
     <h4 class="text-2xl font-semibold mb-6 border-b pb-2">Filtres</h4>
     <form action="/" method="get" class="space-y-6">
 
-        <!-- Select catégorie -->
         <div>
             <label for="categorie" class="block mb-1 text-sm font-medium text-gray-700">Catégories</label>
             <select id="categorie" name="categorie"
@@ -59,7 +56,6 @@
             </select>
         </div>
 
-        <!-- Search -->
         <div>
             <label for="search" class="block mb-1 text-sm font-medium text-gray-700">Nom de l'article</label>
             <input type="text" id="search" name="search" placeholder="Le nom de l'article"
@@ -67,7 +63,6 @@
                    th:value="${search}">
         </div>
 
-        <!-- Checkboxes -->
         <div class="flex flex-col sm:flex-row gap-4">
             <label class="flex items-center space-x-2">
                 <input type="checkbox" name="disponibles" class="accent-blue-600" th:checked="${disponibles}">
@@ -79,7 +74,6 @@
             </label>
         </div>
 
-        <!-- Boutons -->
         <div class="flex flex-col sm:flex-row gap-3">
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition">
                 Rechercher
@@ -91,7 +85,6 @@
     </form>
 </section>
 
-<!-- Enchères en cours -->
 <section class="container mx-auto mt-12 px-4">
     <h2 class="text-2xl font-bold mb-6">Enchères en cours</h2>
 
@@ -125,7 +118,6 @@
          class="text-gray-500 italic">Aucune enchère disponible pour le moment.</div>
 </section>
 
-<!-- MES ENCHÈRES EN COURS -->
 <section class="container mx-auto mt-12 px-4">
     <h2 class="text-2xl font-bold mb-6">Mes enchères en cours</h2>
 
@@ -143,7 +135,6 @@
     </div>
 </section>
 
-<!-- MES ENCHÈRES GAGNÉES -->
 <section class="container mx-auto mt-12 px-4">
     <h2 class="text-2xl font-bold mb-6">Mes enchères gagnées</h2>
 
@@ -167,7 +158,6 @@
 </section>
 
 <script>
-    // Aucune logique JavaScript nécessaire ici puisque le menu mobile est toujours visible
 </script>
 
 </body>

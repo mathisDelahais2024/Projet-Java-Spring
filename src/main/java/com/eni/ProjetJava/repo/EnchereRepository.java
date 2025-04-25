@@ -7,7 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EnchereRepository extends JpaRepository<Enchere, Long> {
 
-    // Tu peux ajouter des méthodes personnalisées si nécessaire, par exemple :
-    // List<Enchere> findByEtat(String etat);
-    // Enchere findByArticle_Id(Long id);
 }
